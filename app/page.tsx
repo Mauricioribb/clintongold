@@ -1,49 +1,82 @@
-'use client';
-
-import { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import Hero from '../components/Hero';
 import BrandMessage from '../components/BrandMessage';
 import Features from '../components/Features';
 import ProductCard from '../components/ProductCard';
-import { Product } from '../types';
+import { Product, SliderImage } from '../types';
 import Link from 'next/link';
 
-export default function HomePage() {
-  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
+// ISR: Revalida a cada 60 segundos
+export const revalidate = 60;
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
+async function getFeaturedProducts(): Promise<Product[]> {
+  try {
+    // Buscar da API interna
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
+                   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
     
-    // Buscar produtos em destaque
-    async function fetchFeaturedProducts() {
-      try {
-        const response = await fetch('/api/products');
-        if (response.ok) {
-          const products: Product[] = await response.json();
-          // Filtrar apenas produtos ativos e com tag "Destaque"
-          const featured = products
-            .filter(p => {
-              const isActive = typeof p.active === 'number' ? p.active === 1 : p.active !== false;
-              return isActive && p.tag === 'Destaque';
-            })
-            .slice(0, 8); // Limitar a 8 produtos
-          setFeaturedProducts(featured);
-        }
-      } catch (error) {
-        console.error('Erro ao buscar produtos:', error);
-      } finally {
-        setLoading(false);
-      }
+    const response = await fetch(`${baseUrl}/api/products`, {
+      next: { revalidate: 60 } // Cache por 60 segundos
+    });
+
+    if (!response.ok) {
+      return [];
     }
 
-    fetchFeaturedProducts();
-  }, []);
+    const products: Product[] = await response.json();
+    
+    // Filtrar produtos ativos com tag "Destaque"
+    return products
+      .filter(p => {
+        const isActive = typeof p.active === 'number' ? p.active === 1 : p.active !== false;
+        return isActive && p.tag === 'Destaque';
+      })
+      .slice(0, 8);
+  } catch (error) {
+    console.error('Erro ao buscar produtos:', error);
+    return [];
+  }
+}
+
+async function getSliderImages(): Promise<SliderImage[]> {
+  try {
+    // Buscar da API interna
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
+                   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
+    
+    const response = await fetch(`${baseUrl}/api/slider`, {
+      next: { revalidate: 60 } // Cache por 60 segundos
+    });
+
+    if (!response.ok) {
+      return [];
+    }
+
+    const images: SliderImage[] = await response.json();
+    
+    // Filtrar apenas imagens ativas e ordenar
+    return images
+      .filter(img => {
+        const isActive = typeof img.active === 'number' ? img.active === 1 : img.active === true;
+        return isActive;
+      })
+      .sort((a, b) => a.order - b.order);
+  } catch (error) {
+    console.error('Erro ao buscar slider:', error);
+    return [];
+  }
+}
+
+export default async function HomePage() {
+  // Buscar dados em paralelo das APIs internas
+  const [featuredProducts, sliderImages] = await Promise.all([
+    getFeaturedProducts(),
+    getSliderImages()
+  ]);
 
   return (
     <Layout>
-      <Hero />
+      <Hero slides={sliderImages} />
       <BrandMessage />
       <Features />
       
@@ -52,8 +85,12 @@ export default function HomePage() {
         <section className="py-24 bg-black px-4 md:px-8">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-gold text-sm font-bold tracking-[0.3em] uppercase mb-4">Coleções Exclusivas</h2>
-              <h3 className="text-4xl md:text-5xl font-bold mb-6 uppercase tracking-tight text-white">Produtos em Destaque</h3>
+              <h2 className="text-gold text-sm font-bold tracking-[0.3em] uppercase mb-4">
+                Coleções Exclusivas
+              </h2>
+              <h3 className="text-4xl md:text-5xl font-bold mb-6 uppercase tracking-tight text-white">
+                Produtos em Destaque
+              </h3>
               <div className="w-24 h-1 bg-gold-gradient mx-auto rounded-full"></div>
             </div>
 
