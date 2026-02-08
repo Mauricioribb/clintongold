@@ -27,6 +27,14 @@ async function testR2() {
     // Teste: tentar criar o cliente e listar buckets (ou pelo menos verificar se o cliente é criado)
     const client = getR2Client();
     
+    if (!client) {
+      return {
+        success: false,
+        message: 'Erro na conexão R2',
+        error: 'Cliente R2 não pôde ser criado. Verifique as variáveis de ambiente.',
+      };
+    }
+    
     // Tentar listar buckets para verificar conexão
     try {
       const command = new ListBucketsCommand({});
