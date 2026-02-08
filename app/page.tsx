@@ -24,7 +24,10 @@ export default function HomePage() {
           const products: Product[] = await response.json();
           // Filtrar apenas produtos ativos e com tag "Destaque"
           const featured = products
-            .filter(p => p.active !== false && p.tag === 'Destaque')
+            .filter(p => {
+              const isActive = typeof p.active === 'number' ? p.active === 1 : p.active !== false;
+              return isActive && p.tag === 'Destaque';
+            })
             .slice(0, 8); // Limitar a 8 produtos
           setFeaturedProducts(featured);
         }

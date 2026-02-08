@@ -8,6 +8,8 @@ export interface Product {
   description?: string;
   gallery?: string[];
   categoryId?: string;
+  tag?: string;
+  active?: boolean | number;
   createdAt?: string;
   updatedAt?: string;
 }
