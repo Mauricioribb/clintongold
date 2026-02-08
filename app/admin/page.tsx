@@ -33,6 +33,12 @@ export default async function AdminPage() {
             >
               Ver Site
             </Link>
+            <Link
+              href="/admin/importar"
+              className="px-4 py-2 border border-gray-300 rounded-lg hover:border-gold transition-all text-gray-700 hover:text-gray-900"
+            >
+              Importar
+            </Link>
             <form action="/api/admin/logout" method="POST">
               <button
                 type="submit"

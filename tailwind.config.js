@@ -10,6 +10,9 @@ module.exports = {
       colors: {
         gold: '#d4af37',
       },
+      backgroundImage: {
+        'gold-gradient': 'linear-gradient(135deg, #d4af37 0%, #f4d03f 100%)',
+      },
     },
   },
   plugins: [],

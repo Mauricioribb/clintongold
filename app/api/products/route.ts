@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { name, reference, price, image, gallery, description, categoryId, tag } = body;
+    const { name, reference, price, image, gallery, description, categoryId, tag, active } = body;
 
     // Validação
     if (!name || !reference || !image) {
@@ -46,9 +46,9 @@ export async function POST(request: NextRequest) {
 
     // Inserir produto
     await executeQuery(
-      `INSERT INTO products (id, name, reference, price, image, gallery, description, categoryId, tag, createdAt, updatedAt)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))`,
-      [productId, name, reference, price || 0, image, gallery || null, description || null, categoryId || null, tag || null]
+      `INSERT INTO products (id, name, reference, price, image, gallery, description, categoryId, tag, active, createdAt, updatedAt)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))`,
+      [productId, name, reference, price || 0, image, gallery || null, description || null, categoryId || null, tag || null, active !== undefined ? active : 1]
     );
 
     // Buscar produto criado
@@ -68,6 +68,7 @@ export async function POST(request: NextRequest) {
       description: description || null,
       categoryId: categoryId || null,
       tag: tag || null,
+      active: active !== undefined ? active : 1,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };

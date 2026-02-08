@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS products (
   description TEXT,
   categoryId TEXT,
   tag TEXT,
+  active INTEGER NOT NULL DEFAULT 1,
   createdAt TEXT NOT NULL,
   updatedAt TEXT NOT NULL,
   FOREIGN KEY (categoryId) REFERENCES categories(id)

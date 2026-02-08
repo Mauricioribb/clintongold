@@ -81,6 +81,10 @@ export async function PUT(
       updates.push('gallery = ?');
       values.push(body.gallery);
     }
+    if (body.active !== undefined) {
+      updates.push('active = ?');
+      values.push(body.active);
+    }
 
     updates.push("updatedAt = datetime('now')");
     values.push(params.id);

@@ -18,6 +18,7 @@ export default function ProductForm({ product }: { product?: any }) {
     tag: product?.tag || '',
     image: product?.image || '',
     gallery: product?.gallery ? (typeof product.gallery === 'string' ? JSON.parse(product.gallery) : product.gallery) : [],
+    active: product?.active !== undefined ? (product.active === 1 || product.active === true) : true,
   });
   const [categories, setCategories] = useState<any[]>([]);
 
@@ -140,6 +141,7 @@ export default function ProductForm({ product }: { product?: any }) {
       const submitData = {
         ...formData,
         gallery: JSON.stringify(formData.gallery),
+        active: formData.active ? 1 : 0,
       };
 
       const response = await fetch(url, {
@@ -166,6 +168,34 @@ export default function ProductForm({ product }: { product?: any }) {
 
   return (
     <form onSubmit={handleSubmit} className="bg-white border border-gray-200 rounded-lg p-8 space-y-6 shadow-sm">
+      <div>
+        <label className="flex items-center justify-between p-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition-all cursor-pointer">
+          <div>
+            <span className="block text-sm font-medium text-gray-700 mb-1">
+              Status do Produto
+            </span>
+            <span className="text-xs text-gray-500">
+              {formData.active ? 'Produto ativo e visível na loja' : 'Produto desativado e oculto'}
+            </span>
+          </div>
+          <div className="relative">
+            <input
+              type="checkbox"
+              checked={formData.active}
+              onChange={(e) => setFormData(prev => ({ ...prev, active: e.target.checked }))}
+              className="sr-only"
+            />
+            <div className={`w-14 h-8 rounded-full transition-all ${
+              formData.active ? 'bg-gold' : 'bg-gray-300'
+            }`}>
+              <div className={`w-6 h-6 bg-white rounded-full shadow-md transform transition-transform mt-1 ${
+                formData.active ? 'translate-x-7' : 'translate-x-1'
+              }`} />
+            </div>
+          </div>
+        </label>
+      </div>
+
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Nome do Produto *
