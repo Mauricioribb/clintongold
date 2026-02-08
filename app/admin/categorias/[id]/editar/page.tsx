@@ -36,7 +36,7 @@ async function getCategory(id: string) {
 export default async function EditarCategoriaPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const isAuthenticated = await checkAuth();
 
@@ -44,7 +44,8 @@ export default async function EditarCategoriaPage({
     redirect('/admin');
   }
 
-  const category = await getCategory(params.id);
+  const { id } = await params;
+  const category = await getCategory(id);
 
   if (!category) {
     redirect('/admin/categorias');

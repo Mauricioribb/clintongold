@@ -4,12 +4,13 @@ import { executeQuery } from '@/lib/db-helper';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const { results } = await executeQuery(
       'SELECT * FROM products WHERE id = ?',
-      [params.id]
+      [id]
     );
     
     if (results && results.length > 0) {
@@ -31,7 +32,7 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const cookieStore = await cookies();
@@ -44,6 +45,7 @@ export async function PUT(
       );
     }
 
+    const { id } = await params;
     const body = await request.json();
 
     const updates: string[] = [];
@@ -87,7 +89,7 @@ export async function PUT(
     }
 
     updates.push("updatedAt = datetime('now')");
-    values.push(params.id);
+    values.push(id);
 
     await executeQuery(
       `UPDATE products SET ${updates.join(', ')} WHERE id = ?`,
@@ -96,7 +98,7 @@ export async function PUT(
 
     const { results } = await executeQuery(
       'SELECT * FROM products WHERE id = ?',
-      [params.id]
+      [id]
     );
 
     return NextResponse.json(results?.[0] || { success: true });
@@ -111,7 +113,7 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const cookieStore = await cookies();
@@ -124,9 +126,10 @@ export async function DELETE(
       );
     }
 
+    const { id } = await params;
     await executeQuery(
       'DELETE FROM products WHERE id = ?',
-      [params.id]
+      [id]
     );
 
     return NextResponse.json({ success: true });

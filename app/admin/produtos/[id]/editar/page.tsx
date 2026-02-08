@@ -36,7 +36,7 @@ async function getProduct(id: string) {
 export default async function EditarProdutoPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const isAuthenticated = await checkAuth();
 
@@ -44,7 +44,8 @@ export default async function EditarProdutoPage({
     redirect('/admin');
   }
 
-  const product = await getProduct(params.id);
+  const { id } = await params;
+  const product = await getProduct(id);
 
   if (!product) {
     redirect('/admin/produtos');

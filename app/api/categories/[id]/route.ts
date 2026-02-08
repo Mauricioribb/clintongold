@@ -4,12 +4,13 @@ import { executeQuery } from '@/lib/db-helper';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const result = await executeQuery(
       'SELECT * FROM categories WHERE id = ?',
-      [params.id]
+      [id]
     );
     
     const results = result?.results || [];
@@ -33,7 +34,7 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const cookieStore = await cookies();
@@ -46,6 +47,7 @@ export async function PUT(
       );
     }
 
+    const { id } = await params;
     const body = await request.json();
     const { name, slug, description } = body;
 
@@ -59,18 +61,18 @@ export async function PUT(
     // Atualizar categoria
     await executeQuery(
       `UPDATE categories SET name = ?, slug = ?, description = ?, updatedAt = datetime('now') WHERE id = ?`,
-      [name, slug, description || null, params.id]
+      [name, slug, description || null, id]
     );
 
     // Buscar categoria atualizada
     const result = await executeQuery(
       'SELECT * FROM categories WHERE id = ?',
-      [params.id]
+      [id]
     );
 
     const results = result?.results || [];
     const category = results[0] || {
-      id: params.id,
+      id: id,
       name,
       slug,
       description: description || null,
@@ -89,7 +91,7 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const cookieStore = await cookies();
@@ -102,9 +104,10 @@ export async function DELETE(
       );
     }
 
+    const { id } = await params;
     await executeQuery(
       'DELETE FROM categories WHERE id = ?',
-      [params.id]
+      [id]
     );
 
     return NextResponse.json({ success: true });
