@@ -123,7 +123,7 @@ export default function ProductForm({ product }: { product?: any }) {
   const removeGalleryImage = (index: number) => {
     setFormData(prev => ({
       ...prev,
-      gallery: prev.gallery.filter((_, i) => i !== index),
+      gallery: prev.gallery.filter((_: string, i: number) => i !== index),
     }));
   };
 
