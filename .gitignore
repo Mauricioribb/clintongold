@@ -17,6 +17,10 @@ dist-ssr
 out/
 build
 
+# uploads locais (não commitar imagens de desenvolvimento)
+/public/uploads/*
+!/public/uploads/.gitkeep
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

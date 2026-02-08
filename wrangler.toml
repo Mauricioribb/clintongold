@@ -1,0 +1,20 @@
+name = "clinton-gold"
+main = ".next/server.js"
+compatibility_date = "2024-01-01"
+
+[env.production]
+routes = [
+  { pattern = "clintongold.com.br", zone_name = "clintongold.com.br" }
+]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "clinton-gold-db"
+database_id = "745bc0dc-eda6-427c-aa0e-1beb60d73782"
+
+[[r2_buckets]]
+binding = "IMAGES"
+bucket_name = "clinton-gold-images"
+
+[vars]
+NODE_ENV = "production"
