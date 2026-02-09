@@ -14,9 +14,6 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(4);
 
-  // Duplicar produtos para loop infinito
-  const duplicatedProducts = [...products, ...products, ...products];
-
   useEffect(() => {
     const updateItemsPerView = () => {
       setItemsPerView(window.innerWidth < 768 ? 1 : 4);
