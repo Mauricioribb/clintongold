@@ -151,12 +151,12 @@ export default async function HomePage() {
         <section className="py-24 bg-black px-4 md:px-8">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-gold text-sm font-bold tracking-[0.3em] uppercase mb-4">
-                Coleções Exclusivas
-              </h2>
-              <h3 className="text-4xl md:text-5xl font-bold mb-6 uppercase tracking-tight text-white">
-                Produtos em Destaque
-              </h3>
+                  <h2 className="text-gold text-sm font-bold tracking-[0.3em] uppercase mb-4">
+                    Coleções Exclusivas
+                  </h2>
+                  <h3 className="text-4xl md:text-5xl font-bold mb-6 uppercase tracking-tight text-white">
+                    Novos Produtos
+                  </h3>
               <div className="w-24 h-1 bg-gold-gradient mx-auto rounded-full"></div>
             </div>
 
