@@ -110,8 +110,8 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
                         <span className="text-black text-[9px] font-bold uppercase tracking-wider">Destaque</span>
                       </div>
 
-                      {/* Conteúdo sobreposto - discreto */}
-                      <div className="relative z-10 h-full flex flex-col justify-center items-center p-3 md:p-4 text-center">
+                      {/* Conteúdo sobreposto - no bottom */}
+                      <div className="relative z-10 h-full flex flex-col justify-end items-center p-3 md:p-4 text-center">
                         {/* Título - centralizado */}
                         <h2 className="text-xs md:text-sm font-medium text-white/90 mb-2 uppercase tracking-tight line-clamp-2 text-center">
                           {product.name}
