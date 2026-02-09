@@ -14,7 +14,7 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(4);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const updateItemsPerView = () => {
       setItemsPerView(window.innerWidth < 768 ? 1 : 4);
     };
