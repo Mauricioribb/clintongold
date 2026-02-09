@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Info } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Info, Star } from 'lucide-react';
 import { Product } from '../types';
 import { CONTACT_INFO } from '../constants';
 import Link from 'next/link';
@@ -85,25 +85,31 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
                       </div>
 
+                      {/* Tag Destaque */}
+                      <div className="absolute top-3 left-3 z-20 flex items-center space-x-1 bg-gold/90 backdrop-blur-sm px-2 py-1 rounded-full">
+                        <Star size={10} className="text-black fill-black" />
+                        <span className="text-black text-[9px] font-bold uppercase tracking-wider">Destaque</span>
+                      </div>
+
                       {/* Conteúdo sobreposto - discreto */}
-                      <div className="relative z-10 h-full flex flex-col justify-end p-3 md:p-4">
-                        {/* Título - menor e discreto */}
-                        <h2 className="text-xs md:text-sm font-medium text-white/90 mb-1 uppercase tracking-tight line-clamp-2">
+                      <div className="relative z-10 h-full flex flex-col justify-center items-center p-3 md:p-4 text-center">
+                        {/* Título - centralizado */}
+                        <h2 className="text-xs md:text-sm font-medium text-white/90 mb-2 uppercase tracking-tight line-clamp-2 text-center">
                           {product.name}
                         </h2>
                         
-                        {/* Preço - menor */}
-                        <div className="mb-3">
+                        {/* Preço - centralizado */}
+                        <div className="mb-4">
                           <span className="text-white/80 font-semibold text-xs md:text-sm">
                             {product.price === 0 ? 'Sob Consulta' : `R$ ${product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
                           </span>
                         </div>
 
-                        {/* Botões - só texto e ícone branco */}
-                        <div className="flex flex-col gap-1.5">
+                        {/* Botões - duas colunas */}
+                        <div className="flex gap-2 w-full">
                           <Link
                             href={`/joias/${product.id}`}
-                            className="flex items-center justify-center space-x-1.5 text-white/80 hover:text-white text-[10px] md:text-xs font-medium uppercase tracking-wide transition-all"
+                            className="flex-1 flex items-center justify-center space-x-1 text-white/80 hover:text-white text-[10px] md:text-xs font-medium uppercase tracking-wide transition-all"
                           >
                             <Info size={12} />
                             <span>Detalhes</span>
@@ -113,7 +119,7 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
                             href={finalLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center justify-center space-x-1.5 text-white/80 hover:text-white text-[10px] md:text-xs font-medium uppercase tracking-wide transition-all"
+                            className="flex-1 flex items-center justify-center space-x-1 text-white/80 hover:text-white text-[10px] md:text-xs font-medium uppercase tracking-wide transition-all"
                           >
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16" className="text-white">
                               <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
