@@ -122,12 +122,12 @@ const ProductCardCompact: React.FC<ProductCardCompactProps> = ({ product }) => {
 
   return (
     <div className="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col border border-neutral-100 h-full">
-      {/* Imagem Compacta */}
-      <div className="relative aspect-square overflow-hidden bg-neutral-50/50 p-4">
+      {/* Imagem Compacta - 1x1 sem espaçamento */}
+      <div className="relative aspect-square overflow-hidden bg-neutral-50/50">
         <img 
           src={product.image} 
           alt={product.name}
-          className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute top-2 left-2">
           <span className="bg-white/90 backdrop-blur-sm text-[8px] text-neutral-400 border border-neutral-200 px-1.5 py-0.5 rounded-full font-bold tracking-widest uppercase">
