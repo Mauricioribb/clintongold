@@ -2,6 +2,7 @@ import Layout from '../components/Layout';
 import Hero from '../components/Hero';
 import Marquee from '../components/Marquee';
 import ProductCarousel from '../components/ProductCarousel';
+import FeaturedProductCarousel from '../components/FeaturedProductCarousel';
 import BrandMessage from '../components/BrandMessage';
 import Features from '../components/Features';
 import About from '../components/About';
