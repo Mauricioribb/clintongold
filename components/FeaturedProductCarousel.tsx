@@ -115,19 +115,19 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
                       <div className="relative z-10 h-full flex flex-col justify-end items-center p-3 md:p-4">
                         <div className="w-[70%]">
                           {/* Título - centralizado */}
-                          <h2 className="text-xs md:text-sm font-medium text-white/90 uppercase tracking-tight line-clamp-2 text-center mb-4">
+                          <h2 className="text-xs md:text-sm font-medium text-white/90 uppercase tracking-tight line-clamp-2 text-center mb-6">
                             {product.name}
                           </h2>
                           
                           {/* Preço abaixo do título - centralizado */}
-                          <div className="text-center mb-6">
+                          <div className="text-center mb-8">
                             <span className="text-white/80 font-semibold text-xs md:text-sm">
                               {product.price === 0 ? 'Sob Consulta' : `R$ ${product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
                             </span>
                           </div>
 
                           {/* Botões - duas colunas alinhadas à esquerda */}
-                          <div className="flex gap-2 w-full">
+                          <div className="flex gap-1 w-full">
                             <button
                               onClick={() => {
                                 setLightboxProduct(product);
