@@ -138,9 +138,9 @@ export default async function HomePage() {
   return (
     <Layout>
       <Hero slides={sliderImages} />
-      {/* Carrossel de Produtos em Destaque */}
+      {/* Carrossel de Produtos em Destaque com foto de fundo */}
       {highlightedProducts.length > 0 && (
-        <ProductCarousel products={highlightedProducts} />
+        <FeaturedProductCarousel products={highlightedProducts} />
       )}
       <BrandMessage />
       <Features />
