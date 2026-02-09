@@ -53,7 +53,7 @@ const BrandsCarousel: React.FC = () => {
                 <img 
                   src={brand.logo} 
                   alt={brand.name} 
-                  className="h-10 md:h-14 w-auto object-contain rounded-lg opacity-20 group-hover:opacity-100 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-all duration-700 ease-in-out" 
+                  className="h-16 md:h-24 w-auto object-contain rounded-lg group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-all duration-700 ease-in-out" 
                 />
               </div>
             ))}
