@@ -56,7 +56,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
               className="w-full flex items-center justify-center space-x-1.5 border border-neutral-200 text-neutral-500 py-2 rounded-[10px] font-bold uppercase tracking-widest text-[9px] hover:bg-neutral-50 transition-all"
             >
               <Info size={12} />
-              <span>Saiba Mais</span>
+              <span>MAIS DETALHES</span>
             </button>
 
             <a 
