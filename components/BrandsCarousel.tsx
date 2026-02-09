@@ -2,24 +2,24 @@ import React from 'react';
 
 const BRANDS = [
   { 
-    name: 'Rolex', 
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Rolex_logo.svg/1024px-Rolex_logo.svg.png' 
+    name: 'Marca 1', 
+    logo: '/imagens/marcas/img1.jpg' 
   },
   { 
-    name: 'Omega', 
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Omega_Logo.svg/1024px-Omega_Logo.svg.png' 
+    name: 'Marca 2', 
+    logo: '/imagens/marcas/img2.jpg' 
   },
   { 
-    name: 'Cartier', 
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Cartier_logo.svg/1024px-Cartier_logo.svg.png' 
+    name: 'Marca 3', 
+    logo: '/imagens/marcas/img3.jpg' 
   },
   { 
-    name: 'Breitling', 
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Breitling_logo.svg/1024px-Breitling_logo.svg.png' 
+    name: 'Marca 4', 
+    logo: '/imagens/marcas/img4.jpg' 
   },
   { 
-    name: 'Tag Heuer', 
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Tag_Heuer_logo.svg/1024px-Tag_Heuer_logo.svg.png' 
+    name: 'Marca 5', 
+    logo: '/imagens/marcas/03.jpg' 
   },
 ];
 
@@ -53,7 +53,7 @@ const BrandsCarousel: React.FC = () => {
                 <img 
                   src={brand.logo} 
                   alt={brand.name} 
-                  className="h-10 md:h-14 w-auto object-contain brightness-0 invert opacity-20 grayscale group-hover:opacity-100 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-all duration-700 ease-in-out" 
+                  className="h-10 md:h-14 w-auto object-contain opacity-20 grayscale group-hover:opacity-100 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-all duration-700 ease-in-out" 
                 />
               </div>
             ))}
