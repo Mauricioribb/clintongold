@@ -53,8 +53,8 @@ const Hero: React.FC<HeroProps> = ({ slides }) => {
     setCurrentSlide((prev) => (prev - 1 + displaySlides.length) % displaySlides.length);
   };
 
-  return (
-    <section className="pt-28 pb-12 bg-black px-4 md:px-8 flex justify-center">
+      return (
+        <section className="pt-20 pb-8 bg-black px-4 md:px-8 flex justify-center">
       <div className="w-full max-w-[1280px] relative h-[250px] md:h-[400px] overflow-hidden rounded-[10px] shadow-2xl group bg-black">
         {displaySlides.map((slide, index) => {
           const slideContent = (
