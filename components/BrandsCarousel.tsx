@@ -48,12 +48,12 @@ const BrandsCarousel: React.FC = () => {
             {[...BRANDS, ...BRANDS, ...BRANDS].map((brand, idx) => (
               <div 
                 key={idx} 
-                className="flex-shrink-0 mx-16 md:mx-28 group transition-all duration-1000"
+                className="flex-shrink-0 mx-6 md:mx-8 group transition-all duration-1000"
               >
                 <img 
                   src={brand.logo} 
                   alt={brand.name} 
-                  className="h-10 md:h-14 w-auto object-contain opacity-20 grayscale group-hover:opacity-100 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-all duration-700 ease-in-out" 
+                  className="h-10 md:h-14 w-auto object-contain rounded-lg opacity-20 group-hover:opacity-100 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-all duration-700 ease-in-out" 
                 />
               </div>
             ))}
