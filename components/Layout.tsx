@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from './Navbar';
+import Marquee from './Marquee';
 import Footer from './Footer';
 
 interface LayoutProps {
@@ -13,6 +14,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <div className="fixed inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')] opacity-30 pointer-events-none"></div>
       
       <Navbar />
+      <Marquee />
       
       <main className="relative z-10">
         {children}

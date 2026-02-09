@@ -137,7 +137,6 @@ export default async function HomePage() {
 
   return (
     <Layout>
-      <Marquee />
       <Hero slides={sliderImages} />
       {/* Carrossel de Produtos em Destaque */}
       {highlightedProducts.length > 0 && (
