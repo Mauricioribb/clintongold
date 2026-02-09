@@ -114,17 +114,16 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
                       {/* Conteúdo sobreposto - no bottom */}
                       <div className="relative z-10 h-full flex flex-col justify-end items-center p-3 md:p-4">
                         <div className="w-[70%]">
-                          {/* Título e Preço - duas colunas alinhadas à esquerda */}
-                          <div className="flex gap-2 mb-3">
-                            <h2 className="flex-1 text-xs md:text-sm font-medium text-white/90 uppercase tracking-tight line-clamp-2 text-left">
-                              {product.name}
-                            </h2>
-                            
-                            <div className="flex-1 text-left">
-                              <span className="text-white/80 font-semibold text-xs md:text-sm">
-                                {product.price === 0 ? 'Sob Consulta' : `R$ ${product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
-                              </span>
-                            </div>
+                          {/* Título */}
+                          <h2 className="text-xs md:text-sm font-medium text-white/90 uppercase tracking-tight line-clamp-2 text-left mb-2">
+                            {product.name}
+                          </h2>
+                          
+                          {/* Preço abaixo do título */}
+                          <div className="text-left mb-3">
+                            <span className="text-white/80 font-semibold text-xs md:text-sm">
+                              {product.price === 0 ? 'Sob Consulta' : `R$ ${product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
+                            </span>
                           </div>
 
                           {/* Botões - duas colunas alinhadas à esquerda */}
