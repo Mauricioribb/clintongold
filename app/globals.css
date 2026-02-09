@@ -22,4 +22,25 @@
   .dot.translate-x-full {
     transform: translateX(100%);
   }
+  
+  /* Marquee animation */
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+  
+  /* Brands carousel animation */
+  @keyframes marquee-premium {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-33.333%); }
+  }
+  .animate-marquee-premium {
+    animation: marquee-premium 40s linear infinite;
+  }
+  .animate-marquee-premium:hover {
+    animation-play-state: paused;
+  }
 }

@@ -1,8 +1,12 @@
 import Layout from '../components/Layout';
 import Hero from '../components/Hero';
+import Marquee from '../components/Marquee';
 import ProductCarousel from '../components/ProductCarousel';
 import BrandMessage from '../components/BrandMessage';
 import Features from '../components/Features';
+import About from '../components/About';
+import BrandsCarousel from '../components/BrandsCarousel';
+import SellCTA from '../components/SellCTA';
 import ProductCard from '../components/ProductCard';
 import { Product, SliderImage } from '../types';
 import Link from 'next/link';
@@ -134,12 +138,14 @@ export default async function HomePage() {
   return (
     <Layout>
       <Hero slides={sliderImages} />
+      <Marquee />
       {/* Carrossel de Produtos em Destaque */}
       {highlightedProducts.length > 0 && (
         <ProductCarousel products={highlightedProducts} />
       )}
       <BrandMessage />
       <Features />
+      <About />
       
       {/* Produtos em Destaque */}
       {featuredProducts.length > 0 && (
@@ -172,6 +178,8 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+      <BrandsCarousel />
+      <SellCTA />
     </Layout>
   );
 }

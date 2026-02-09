@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 const BRANDS = [
@@ -61,6 +62,18 @@ const BrandsCarousel: React.FC = () => {
         </div>
       </div>
 
+      <style>{`
+        @keyframes marquee-premium {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-33.333%); }
+        }
+        .animate-marquee-premium {
+          animation: marquee-premium 40s linear infinite;
+        }
+        .animate-marquee-premium:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
     </section>
   );
 };
