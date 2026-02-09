@@ -13,6 +13,10 @@ interface FeaturedProductCarouselProps {
 const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ products }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(4);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // Duplicar produtos para loop infinito
+  const duplicatedProducts = [...products, ...products, ...products];
 
   useEffect(() => {
     const updateItemsPerView = () => {
@@ -23,28 +27,42 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
     return () => window.removeEventListener('resize', updateItemsPerView);
   }, []);
 
+  // Ajustar índice quando chegar nas extremidades
+  useEffect(() => {
+    if (!isTransitioning) {
+      if (currentIndex >= products.length * 2) {
+        // Se chegou no final duplicado, volta para o início sem animação
+        setIsTransitioning(true);
+        setTimeout(() => {
+          setCurrentIndex(products.length);
+          setIsTransitioning(false);
+        }, 50);
+      } else if (currentIndex < products.length) {
+        // Se voltou muito para trás, vai para o final duplicado sem animação
+        setIsTransitioning(true);
+        setTimeout(() => {
+          setCurrentIndex(products.length * 2 - itemsPerView);
+          setIsTransitioning(false);
+        }, 50);
+      }
+    }
+  }, [currentIndex, products.length, itemsPerView, isTransitioning]);
+
   // Auto-play para loop infinito
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => {
-        const next = prev + 1;
-        // Se chegou ao final dos produtos originais, volta ao início
-        if (next >= products.length) {
-          return 0;
-        }
-        return next;
-      });
+      setCurrentIndex((prev) => prev + 1);
     }, 4000); // Muda a cada 4 segundos
 
     return () => clearInterval(interval);
-  }, [products.length]);
+  }, []);
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % products.length);
+    setCurrentIndex((prev) => prev + 1);
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + products.length) % products.length);
+    setCurrentIndex((prev) => prev - 1);
   };
 
   if (products.length === 0) {
@@ -61,9 +79,10 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
               className="flex transition-transform duration-500 ease-in-out"
               style={{ 
                 transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)`,
+                transition: isTransitioning ? 'none' : 'transform 0.5s ease-in-out',
               }}
             >
-              {products.map((product, idx) => {
+              {duplicatedProducts.map((product, idx) => {
                 const whatsappMsg = `Olá, tenho interesse no produto: ${product.name} (Ref: ${product.reference})`;
                 const finalLink = `${CONTACT_INFO.whatsappUrl}?text=${encodeURIComponent(whatsappMsg)}`;
 
@@ -136,7 +155,7 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
           </div>
 
           {/* Botões de Navegação - mais discretos */}
-          {products.length > itemsPerView && (
+          {duplicatedProducts.length > itemsPerView && (
             <>
               <button
                 onClick={prevSlide}
