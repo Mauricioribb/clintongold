@@ -38,12 +38,12 @@ const BrandsCarousel: React.FC = () => {
           </p>
         </div>
         
-        <div className="relative mt-20">
+        <div className="relative mt-20 overflow-hidden">
           {/* Sombreamento lateral para fade infinito */}
-          <div className="absolute inset-y-0 left-0 w-32 md:w-64 z-10 bg-gradient-to-r from-black via-black/80 to-transparent pointer-events-none"></div>
-          <div className="absolute inset-y-0 right-0 w-32 md:w-64 z-10 bg-gradient-to-l from-black via-black/80 to-transparent pointer-events-none"></div>
+          <div className="absolute inset-y-0 left-0 w-32 md:w-64 z-20 bg-gradient-to-r from-black via-black to-transparent pointer-events-none"></div>
+          <div className="absolute inset-y-0 right-0 w-32 md:w-64 z-20 bg-gradient-to-l from-black via-black to-transparent pointer-events-none"></div>
 
-          <div className="flex animate-marquee-premium whitespace-nowrap items-center py-4">
+          <div className="flex animate-marquee-premium whitespace-nowrap items-center py-4 relative z-10">
             {/* Triplicamos para garantir o loop sem interrupção */}
             {[...BRANDS, ...BRANDS, ...BRANDS].map((brand, idx) => (
               <div 
