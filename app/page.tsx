@@ -11,12 +11,17 @@ export const revalidate = 60;
 
 async function getFeaturedProducts(): Promise<Product[]> {
   try {
-    // Buscar da API interna
+    // Buscar da API interna - usar URL relativa para SSR
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
-                   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
+                   (typeof window === 'undefined' 
+                     ? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
+                     : '');
     
-    const response = await fetch(`${baseUrl}/api/products`, {
-      next: { revalidate: 60 } // Cache por 60 segundos
+    const apiUrl = baseUrl ? `${baseUrl}/api/products` : '/api/products';
+    
+    const response = await fetch(apiUrl, {
+      next: { revalidate: 60 }, // Cache por 60 segundos
+      cache: 'no-store' // Forçar busca sempre (ISR cuida do cache)
     });
 
     if (!response.ok) {
@@ -40,12 +45,17 @@ async function getFeaturedProducts(): Promise<Product[]> {
 
 async function getSliderImages(): Promise<SliderImage[]> {
   try {
-    // Buscar da API interna
+    // Buscar da API interna - usar URL relativa para SSR
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
-                   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
+                   (typeof window === 'undefined' 
+                     ? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
+                     : '');
     
-    const response = await fetch(`${baseUrl}/api/slider`, {
-      next: { revalidate: 60 } // Cache por 60 segundos
+    const apiUrl = baseUrl ? `${baseUrl}/api/slider` : '/api/slider';
+    
+    const response = await fetch(apiUrl, {
+      next: { revalidate: 60 }, // Cache por 60 segundos
+      cache: 'no-store' // Forçar busca sempre (ISR cuida do cache)
     });
 
     if (!response.ok) {
