@@ -57,7 +57,10 @@ export default function SliderForm({ slider }: { slider?: any }) {
       const response = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          active: formData.active ? 1 : 0, // Converter boolean para número
+        }),
       });
 
       if (response.ok) {
