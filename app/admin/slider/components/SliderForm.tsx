@@ -45,6 +45,13 @@ export default function SliderForm({ slider }: { slider?: any }) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validação
+    if (!formData.title || !formData.imageUrl) {
+      alert('Por favor, preencha o título e faça upload de uma imagem');
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -63,15 +70,18 @@ export default function SliderForm({ slider }: { slider?: any }) {
         }),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
         router.push('/admin/slider');
         router.refresh();
       } else {
-        const data = await response.json();
+        console.error('Erro ao salvar:', data);
         alert(data.error || 'Erro ao salvar imagem do slider');
       }
     } catch (error) {
-      alert('Erro ao salvar imagem do slider');
+      console.error('Erro ao salvar imagem do slider:', error);
+      alert('Erro ao salvar imagem do slider. Verifique o console para mais detalhes.');
     } finally {
       setLoading(false);
     }
