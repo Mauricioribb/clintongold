@@ -12,18 +12,16 @@ interface FeaturedProductCarouselProps {
 
 const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ products }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+  const [itemsPerView, setItemsPerView] = useState(4);
 
   React.useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+    const updateItemsPerView = () => {
+      setItemsPerView(window.innerWidth < 768 ? 1 : 4);
     };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    updateItemsPerView();
+    window.addEventListener('resize', updateItemsPerView);
+    return () => window.removeEventListener('resize', updateItemsPerView);
   }, []);
-
-  const itemsPerView = isMobile ? 1 : 4;
 
   const nextSlide = () => {
     const maxIndex = Math.max(0, products.length - itemsPerView);
@@ -42,8 +40,6 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
   if (products.length === 0) {
     return null;
   }
-
-  const maxIndex = Math.max(0, products.length - itemsPerView);
 
   return (
     <section className="relative bg-black overflow-hidden py-8 md:py-12">
@@ -64,7 +60,8 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
                 return (
                   <div 
                     key={product.id} 
-                    className="flex-shrink-0 px-2 w-full md:w-1/4"
+                    className="flex-shrink-0 px-2"
+                    style={{ width: `${100 / itemsPerView}%` }}
                   >
                     <div className="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden group">
                       {/* Imagem de Fundo */}
