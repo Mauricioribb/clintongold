@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import { Edit, Trash2, Eye, EyeOff } from 'lucide-react';
+import { Edit, Eye, EyeOff } from 'lucide-react';
 import { SliderImage } from '@/types';
+import DeleteSliderButton from './DeleteSliderButton';
 
 async function getSliderImages(): Promise<SliderImage[]> {
   try {
@@ -88,11 +89,7 @@ export default async function SliderTable() {
                   >
                     <Edit size={18} />
                   </Link>
-                  <button
-                    className="p-2 hover:bg-red-50 rounded-lg transition-all text-red-600"
-                  >
-                    <Trash2 size={18} />
-                  </button>
+                  <DeleteSliderButton id={image.id} />
                 </div>
               </td>
             </tr>
