@@ -16,7 +16,7 @@ const BrandMessage: React.FC = () => {
       <div className="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 bg-gold/5 rounded-full blur-[100px] pointer-events-none"></div>
       <div className="absolute top-1/2 right-0 -translate-y-1/2 w-64 h-64 bg-gold/5 rounded-full blur-[100px] pointer-events-none"></div>
 
-      <div className="max-w-5xl mx-auto px-4 md:px-8 text-center relative z-10">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 text-center relative z-10">
         <div className="bg-white rounded-[10px] p-8 md:p-12 shadow-2xl">
           <div className="inline-block mb-8">
             <div className="w-12 h-[1px] bg-gold/50 mx-auto"></div>
