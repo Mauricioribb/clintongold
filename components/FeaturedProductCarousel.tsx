@@ -12,16 +12,26 @@ interface FeaturedProductCarouselProps {
 
 const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ products }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const itemsPerViewMobile = 1;
-  const itemsPerViewDesktop = 4;
+  const [isMobile, setIsMobile] = useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const itemsPerView = isMobile ? 1 : 4;
 
   const nextSlide = () => {
-    const maxIndex = Math.max(0, products.length - itemsPerViewDesktop);
+    const maxIndex = Math.max(0, products.length - itemsPerView);
     setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
   };
 
   const prevSlide = () => {
-    const maxIndex = Math.max(0, products.length - itemsPerViewDesktop);
+    const maxIndex = Math.max(0, products.length - itemsPerView);
     setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
   };
 
@@ -33,8 +43,7 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
     return null;
   }
 
-  const maxIndex = Math.max(0, products.length - itemsPerViewDesktop);
-  const visibleProducts = products.slice(currentIndex, currentIndex + itemsPerViewDesktop);
+  const maxIndex = Math.max(0, products.length - itemsPerView);
 
   return (
     <section className="relative bg-black overflow-hidden py-8 md:py-12">
@@ -45,7 +54,7 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
             <div 
               className="flex transition-transform duration-500 ease-in-out"
               style={{ 
-                transform: `translateX(-${currentIndex * (100 / itemsPerViewDesktop)}%)`,
+                transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)`,
               }}
             >
               {products.map((product) => {
@@ -55,8 +64,7 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
                 return (
                   <div 
                     key={product.id} 
-                    className="flex-shrink-0 px-2"
-                    style={{ width: `${100 / itemsPerViewDesktop}%` }}
+                    className="flex-shrink-0 px-2 w-full md:w-1/4"
                   >
                     <div className="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden group">
                       {/* Imagem de Fundo */}
@@ -115,7 +123,7 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
           </div>
 
           {/* Botões de Navegação */}
-          {products.length > itemsPerViewDesktop && (
+          {products.length > itemsPerView && (
             <>
               <button
                 onClick={prevSlide}
@@ -135,14 +143,14 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
           )}
 
           {/* Indicadores */}
-          {products.length > itemsPerViewDesktop && (
+          {products.length > itemsPerView && (
             <div className="flex justify-center mt-8 space-x-2">
-              {Array.from({ length: Math.ceil(products.length / itemsPerViewDesktop) }).map((_, index) => (
+              {Array.from({ length: Math.ceil(products.length / itemsPerView) }).map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => goToSlide(index * itemsPerViewDesktop)}
+                  onClick={() => goToSlide(index * itemsPerView)}
                   className={`h-2 rounded-full transition-all ${
-                    Math.floor(currentIndex / itemsPerViewDesktop) === index
+                    Math.floor(currentIndex / itemsPerView) === index
                       ? 'w-8 bg-gold'
                       : 'w-2 bg-white/30 hover:bg-white/50'
                   }`}
