@@ -14,7 +14,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <div className="fixed inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')] opacity-30 pointer-events-none"></div>
       
       <Navbar />
-      <Marquee />
+      <div className="pt-[73px]">
+        <Marquee />
+      </div>
       
       <main className="relative z-10">
         {children}
