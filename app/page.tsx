@@ -1,5 +1,6 @@
 import Layout from '../components/Layout';
 import Hero from '../components/Hero';
+import ProductCarousel from '../components/ProductCarousel';
 import BrandMessage from '../components/BrandMessage';
 import Features from '../components/Features';
 import ProductCard from '../components/ProductCard';
@@ -49,6 +50,45 @@ async function getFeaturedProducts(): Promise<Product[]> {
   }
 }
 
+async function getHighlightedProducts(): Promise<Product[]> {
+  try {
+    // Buscar da API interna - usar URL relativa para SSR
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
+                   (typeof window === 'undefined' 
+                     ? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
+                     : '');
+    
+    const apiUrl = baseUrl ? `${baseUrl}/api/products` : '/api/products';
+    
+    const response = await fetch(apiUrl, {
+      next: { revalidate: 60 }, // Cache por 60 segundos
+      cache: 'no-store' // Forçar busca sempre (ISR cuida do cache)
+    });
+
+    if (!response.ok) {
+      return [];
+    }
+
+    const products: Product[] = await response.json();
+    
+    // Filtrar produtos ativos com tag "Destaque"
+    return products
+      .filter(p => {
+        const isActive = typeof p.active === 'number' ? p.active === 1 : p.active !== false;
+        return isActive && p.tag === 'Destaque';
+      })
+      .sort((a, b) => {
+        // Ordenar por data de atualização ou criação (mais recente primeiro)
+        const dateA = new Date(a.updatedAt || a.createdAt || 0).getTime();
+        const dateB = new Date(b.updatedAt || b.createdAt || 0).getTime();
+        return dateB - dateA; // Ordem decrescente (mais recente primeiro)
+      });
+  } catch (error) {
+    console.error('Erro ao buscar produtos em destaque:', error);
+    return [];
+  }
+}
+
 async function getSliderImages(): Promise<SliderImage[]> {
   try {
     // Buscar da API interna - usar URL relativa para SSR
@@ -85,14 +125,19 @@ async function getSliderImages(): Promise<SliderImage[]> {
 
 export default async function HomePage() {
   // Buscar dados em paralelo das APIs internas
-  const [featuredProducts, sliderImages] = await Promise.all([
+  const [featuredProducts, highlightedProducts, sliderImages] = await Promise.all([
     getFeaturedProducts(),
+    getHighlightedProducts(),
     getSliderImages()
   ]);
 
   return (
     <Layout>
       <Hero slides={sliderImages} />
+      {/* Carrossel de Produtos em Destaque */}
+      {highlightedProducts.length > 0 && (
+        <ProductCarousel products={highlightedProducts} />
+      )}
       <BrandMessage />
       <Features />
       
