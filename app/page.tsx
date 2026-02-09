@@ -30,13 +30,19 @@ async function getFeaturedProducts(): Promise<Product[]> {
 
     const products: Product[] = await response.json();
     
-    // Filtrar produtos ativos com tag "Destaque"
+    // Filtrar apenas produtos ativos, ordenar pelos mais recentes e pegar os últimos 8
     return products
       .filter(p => {
         const isActive = typeof p.active === 'number' ? p.active === 1 : p.active !== false;
-        return isActive && p.tag === 'Destaque';
+        return isActive;
       })
-      .slice(0, 8);
+      .sort((a, b) => {
+        // Ordenar por data de atualização ou criação (mais recente primeiro)
+        const dateA = new Date(a.updatedAt || a.createdAt || 0).getTime();
+        const dateB = new Date(b.updatedAt || b.createdAt || 0).getTime();
+        return dateB - dateA; // Ordem decrescente (mais recente primeiro)
+      })
+      .slice(0, 8); // Pegar os últimos 8
   } catch (error) {
     console.error('Erro ao buscar produtos:', error);
     return [];
