@@ -33,7 +33,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
           setWhatsappUrl(getWhatsAppUrl(number));
           setWhatsappNumber(formatWhatsAppNumber(number));
           // sales_disabled pode ser 'true' (string) ou 'false' (string) ou não existir
-          setSalesDisabled(settings.sales_disabled === 'true' || settings.sales_disabled === true);
+          setSalesDisabled(settings.sales_disabled === 'true');
         }
       } catch (error) {
         console.error('Erro ao carregar configurações:', error);

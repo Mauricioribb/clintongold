@@ -85,7 +85,7 @@ export default async function HomePage() {
   ]);
 
   // Verificar se vendas estão desativadas
-  const salesDisabled = settings.sales_disabled === 'true' || settings.sales_disabled === true;
+  const salesDisabled = settings.sales_disabled === 'true';
 
   return (
     <Layout>

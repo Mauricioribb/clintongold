@@ -10,14 +10,14 @@ interface SettingsFormProps {
 export default function SettingsForm({ initialSettings }: SettingsFormProps) {
   const [whatsappNumber, setWhatsappNumber] = useState(initialSettings.whatsapp_number || '');
   const [salesDisabled, setSalesDisabled] = useState(
-    initialSettings.sales_disabled === 'true' || initialSettings.sales_disabled === true
+    initialSettings.sales_disabled === 'true'
   );
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   useEffect(() => {
     setWhatsappNumber(initialSettings.whatsapp_number || '');
-    setSalesDisabled(initialSettings.sales_disabled === 'true' || initialSettings.sales_disabled === true);
+    setSalesDisabled(initialSettings.sales_disabled === 'true');
   }, [initialSettings]);
 
   const handleSubmit = async (e: React.FormEvent) => {
