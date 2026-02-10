@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import { Info, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Product } from '../types';
 import { useSettings } from './SettingsProvider';
@@ -138,8 +139,8 @@ const ProductCard: React.FC<Props> = ({ product }) => {
       </div>
 
       {/* Lightbox Modal */}
-      {isLightboxOpen && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 md:p-8">
+      {isLightboxOpen && typeof window !== 'undefined' && createPortal(
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 md:p-8" style={{ position: 'fixed' }}>
           <div 
             className="absolute inset-0 bg-black/95 backdrop-blur-sm"
             onClick={() => setIsLightboxOpen(false)}
@@ -266,7 +267,8 @@ const ProductCard: React.FC<Props> = ({ product }) => {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

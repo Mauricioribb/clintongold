@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import { Search, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Product } from '../types';
 import { useSettings } from './SettingsProvider';
@@ -241,8 +242,8 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
       </div>
 
       {/* Lightbox do Produto */}
-      {selectedProduct && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 md:p-8">
+      {selectedProduct && typeof window !== 'undefined' && createPortal(
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 md:p-8" style={{ position: 'fixed' }}>
           <div 
             className="absolute inset-0 bg-black/95 backdrop-blur-sm"
             onClick={closeLightbox}
@@ -369,7 +370,8 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

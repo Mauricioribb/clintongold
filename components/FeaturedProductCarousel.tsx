@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import { ChevronLeft, ChevronRight, Info, Star, X } from 'lucide-react';
 import { Product } from '../types';
 import { useSettings } from './SettingsProvider';
@@ -230,8 +231,8 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
       </div>
 
       {/* Lightbox Modal */}
-      {lightboxProduct && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 md:p-8">
+      {lightboxProduct && typeof window !== 'undefined' && createPortal(
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 md:p-8" style={{ position: 'fixed' }}>
           <div 
             className="absolute inset-0 bg-black/95 backdrop-blur-sm"
             onClick={() => setLightboxProduct(null)}
@@ -364,7 +365,8 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );
