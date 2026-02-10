@@ -9,7 +9,7 @@ export default function VenderPage() {
       {/* Banner Grande */}
       <section className="py-12 md:py-[50px] px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="relative h-[400px] md:h-[500px] overflow-hidden rounded-[10px]">
+          <div className="relative h-[260px] md:h-[500px] overflow-hidden rounded-[10px]">
             <img 
               src="/imagens/querovender/Compramos-Ouro-e-Joias.jpg" 
               alt="Compramos Ouro e Joias" 

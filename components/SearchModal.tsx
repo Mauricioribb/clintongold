@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { Search, X, ChevronLeft, ChevronRight, MessageCircle } from 'lucide-react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { Search, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Product } from '../types';
 import { useSettings } from './SettingsProvider';
 
@@ -19,6 +19,31 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const { whatsappUrl } = useSettings();
+
+  // Auto-play das imagens no lightbox
+  useEffect(() => {
+    if (!selectedProduct) {
+      setCurrentImageIndex(0);
+      return;
+    }
+    
+    const galleryArray = Array.isArray(selectedProduct.gallery) ? selectedProduct.gallery : [];
+    const images = [
+      selectedProduct.image,
+      ...galleryArray.filter((img: string | null) => img && typeof img === 'string' && img.trim() !== '')
+    ].filter(Boolean);
+
+    if (images.length <= 1) return;
+    
+    setCurrentImageIndex(0); // Reset ao abrir
+    
+    const imageCount = images.length;
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % imageCount);
+    }, 3000); // Troca a cada 3 segundos
+
+    return () => clearInterval(interval);
+  }, [selectedProduct]);
 
   // Buscar produtos quando o modal abrir
   useEffect(() => {
@@ -80,27 +105,69 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
     setSelectedProduct(null);
   };
 
+  const images = useMemo(() => {
+    if (!selectedProduct || !selectedProduct.image) return [];
+    
+    // Parsear gallery se for string JSON
+    let galleryArray: string[] = [];
+    if (selectedProduct.gallery) {
+      if (typeof selectedProduct.gallery === 'string') {
+        try {
+          galleryArray = JSON.parse(selectedProduct.gallery);
+        } catch (e) {
+          // Se não for JSON válido, tratar como string simples
+          galleryArray = [selectedProduct.gallery];
+        }
+      } else if (Array.isArray(selectedProduct.gallery)) {
+        galleryArray = selectedProduct.gallery;
+      }
+    }
+    
+    // Filtrar imagens válidas e diferentes da principal
+    const validGalleryImages = galleryArray.filter((img: any) => {
+      return img && typeof img === 'string' && img.trim() !== '' && img !== selectedProduct.image;
+    });
+    
+    return [selectedProduct.image, ...validGalleryImages].filter(Boolean);
+  }, [selectedProduct]);
+
+  const whatsappMsg = selectedProduct 
+    ? `Olá, tenho interesse no produto: ${selectedProduct.name} (Ref: ${selectedProduct.reference})`
+    : '';
+  const finalLink = selectedProduct ? `${whatsappUrl}?text=${encodeURIComponent(whatsappMsg)}` : '';
+
   const nextImage = () => {
-    if (selectedProduct) {
-      const images = [selectedProduct.image, ...(selectedProduct.gallery || [])];
+    if (images.length > 0) {
       setCurrentImageIndex((prev) => (prev + 1) % images.length);
     }
   };
 
   const prevImage = () => {
-    if (selectedProduct) {
-      const images = [selectedProduct.image, ...(selectedProduct.gallery || [])];
+    if (images.length > 0) {
       setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
     }
   };
 
-  if (!isOpen) return null;
+  // Auto-play das imagens no lightbox
+  useEffect(() => {
+    if (!selectedProduct) {
+      setCurrentImageIndex(0);
+      return;
+    }
 
-  const images = selectedProduct ? [selectedProduct.image, ...(selectedProduct.gallery || [])] : [];
-  const whatsappMsg = selectedProduct 
-    ? `Olá, tenho interesse no produto: ${selectedProduct.name} (Ref: ${selectedProduct.reference})`
-    : '';
-  const finalLink = selectedProduct ? `${whatsappUrl}?text=${encodeURIComponent(whatsappMsg)}` : '';
+    if (images.length <= 1) return;
+    
+    setCurrentImageIndex(0); // Reset ao abrir
+    
+    const imageCount = images.length;
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % imageCount);
+    }, 3000); // Troca a cada 3 segundos
+
+    return () => clearInterval(interval);
+  }, [selectedProduct, images.length]);
+
+  if (!isOpen) return null;
 
   return (
     <>
@@ -175,7 +242,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
 
       {/* Lightbox do Produto */}
       {selectedProduct && (
-        <div className="fixed inset-0 z-[101] flex items-center justify-center p-4 md:p-8">
+        <div className="fixed inset-0 z-40 flex items-center justify-center p-4 md:p-8">
           <div 
             className="absolute inset-0 bg-black/95 backdrop-blur-sm"
             onClick={closeLightbox}
@@ -191,17 +258,64 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
             </button>
 
             {/* Galeria de Fotos (30% de largura) */}
-            <div className="md:w-[30%] bg-neutral-50 relative flex items-center justify-center p-6 border-b md:border-b-0 md:border-r border-neutral-100">
-              <img 
-                src={images[currentImageIndex]} 
-                alt={selectedProduct.name} 
-                className="max-w-full max-h-[35vh] md:max-h-[60vh] object-contain"
-              />
+            <div className="md:w-[30%] bg-neutral-50 relative flex items-center justify-center p-6 border-b md:border-b-0 md:border-r border-neutral-100 min-h-[300px]">
+              {images.length > 0 && images[currentImageIndex] && (
+                <img 
+                  src={images[currentImageIndex]} 
+                  alt={selectedProduct.name} 
+                  className="max-w-full max-h-[35vh] md:max-h-[60vh] object-contain"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = selectedProduct.image; // Fallback para imagem principal
+                  }}
+                />
+              )}
               
               {images.length > 1 && (
                 <>
-                  <button onClick={prevImage} className="absolute left-2 p-1.5 bg-white/80 hover:bg-white rounded-full text-black shadow-md transition-all"><ChevronLeft size={20} /></button>
-                  <button onClick={nextImage} className="absolute right-2 p-1.5 bg-white/80 hover:bg-white rounded-full text-black shadow-md transition-all"><ChevronRight size={20} /></button>
+                  <button 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      prevImage();
+                    }} 
+                    className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-white hover:bg-gray-50 rounded-full text-black shadow-xl transition-all z-[100] border-2 border-gray-400 hover:border-gray-600"
+                    aria-label="Imagem anterior"
+                    type="button"
+                  >
+                    <ChevronLeft size={28} strokeWidth={3} />
+                  </button>
+                  <button 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      nextImage();
+                    }} 
+                    className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-white hover:bg-gray-50 rounded-full text-black shadow-xl transition-all z-[100] border-2 border-gray-400 hover:border-gray-600"
+                    aria-label="Próxima imagem"
+                    type="button"
+                  >
+                    <ChevronRight size={28} strokeWidth={3} />
+                  </button>
+                  
+                  {/* Indicador de posição */}
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-[100]">
+                    {images.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setCurrentImageIndex(index);
+                        }}
+                        className={`w-2 h-2 rounded-full transition-all ${
+                          index === currentImageIndex 
+                            ? 'bg-black w-6' 
+                            : 'bg-gray-300 hover:bg-gray-400'
+                        }`}
+                        aria-label={`Ir para imagem ${index + 1}`}
+                      />
+                    ))}
+                  </div>
                 </>
               )}
             </div>
@@ -212,7 +326,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
                 <div className="flex-grow">
                   <span className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-3 block">Exclusividade Clinton Gold</span>
                   <h2 className="text-3xl md:text-4xl font-black text-black uppercase mb-4 leading-none">{selectedProduct.name}</h2>
-                  <p className="text-neutral-400 text-[11px] font-bold uppercase tracking-[0.2em] mb-8">Referência Internacional: {selectedProduct.reference}</p>
+                  <p className="text-neutral-400 text-[11px] font-bold uppercase tracking-[0.2em] mb-8">SKU: {selectedProduct.reference}</p>
                 </div>
                 <div className="md:text-right">
                   <p className="text-[10px] text-neutral-400 uppercase font-bold tracking-widest mb-1">Valor Estimado</p>
@@ -241,7 +355,9 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
                   rel="noopener noreferrer"
                   className="w-full sm:flex-1 flex items-center justify-center space-x-3 bg-[#25D366] text-white py-5 rounded-[10px] font-bold uppercase tracking-[0.2em] text-[12px] hover:bg-[#20ba5a] transition-all shadow-xl shadow-green-500/20 active:scale-95"
                 >
-                  <MessageCircle size={22} fill="currentColor" />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+                  </svg>
                   <span>Comprar pelo WhatsApp</span>
                 </a>
                 <button 
