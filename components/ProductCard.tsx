@@ -83,7 +83,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
 
       {/* Lightbox Modal */}
       {isLightboxOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 md:p-8">
           <div 
             className="absolute inset-0 bg-black/95 backdrop-blur-sm"
             onClick={() => setIsLightboxOpen(false)}
