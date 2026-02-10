@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { SettingsProvider } from '@/components/SettingsProvider'
 
 export const metadata: Metadata = {
   title: 'Clinton Gold - Compra e Venda de Ouro e Joias',
@@ -13,7 +14,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body>{children}</body>
+      <body>
+        <SettingsProvider>
+          {children}
+        </SettingsProvider>
+      </body>
     </html>
   )
 }

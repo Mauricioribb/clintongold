@@ -1,13 +1,18 @@
+'use client';
+
 import React from 'react';
 import Navbar from './Navbar';
 import Marquee from './Marquee';
 import Footer from './Footer';
+import { useSettings } from './SettingsProvider';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const { whatsappUrl } = useSettings();
+
   return (
     <div className="relative min-h-screen bg-black text-white selection:bg-gold selection:text-black">
       {/* Background sutil com textura */}
@@ -26,7 +31,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       {/* Botão flutuante do WhatsApp */}
       <a 
-        href="https://wa.me/5571991369104"
+        href={whatsappUrl}
         className="fixed bottom-8 right-8 z-[60] p-4 bg-[#25D366] text-white rounded-full shadow-[0_10px_30px_rgba(37,211,102,0.4)] hover:scale-110 active:scale-95 transition-all animate-bounce"
         aria-label="Falar conosco no WhatsApp"
         style={{ animationDuration: '3s' }}

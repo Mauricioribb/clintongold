@@ -3,9 +3,12 @@
 import { useEffect } from 'react';
 import Layout from '../../components/Layout';
 import { CONTACT_INFO } from '../../constants';
+import { useSettings } from '../../components/SettingsProvider';
 import { Phone, Mail, MapPin, Instagram, Clock } from 'lucide-react';
 
 export default function ContatoPage() {
+  const { whatsappUrl } = useSettings();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -29,7 +32,7 @@ export default function ContatoPage() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             <a
-              href={CONTACT_INFO.whatsappUrl}
+              href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-white/5 border border-white/10 rounded-[10px] p-8 text-center hover:border-gold transition-all group"

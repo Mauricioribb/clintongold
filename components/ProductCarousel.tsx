@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Product } from '../types';
-import { CONTACT_INFO } from '../constants';
+import { useSettings } from './SettingsProvider';
 import Link from 'next/link';
 
 interface ProductCarouselProps {
@@ -117,8 +117,8 @@ interface ProductCardCompactProps {
 }
 
 const ProductCardCompact: React.FC<ProductCardCompactProps> = ({ product }) => {
-  const whatsappMsg = `Olá, tenho interesse no produto: ${product.name} (Ref: ${product.reference})`;
-  const finalLink = `${CONTACT_INFO.whatsappUrl}?text=${encodeURIComponent(whatsappMsg)}`;
+                const whatsappMsg = `Olá, tenho interesse no produto: ${product.name} (Ref: ${product.reference})`;
+                const finalLink = `${whatsappUrl}?text=${encodeURIComponent(whatsappMsg)}`;
 
   return (
     <div className="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col border border-neutral-100 h-full">
