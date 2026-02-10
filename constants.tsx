@@ -29,5 +29,5 @@ export const CONTACT_INFO = {
     week: 'Segunda – Sexta: 8:00 – 19:00',
     saturday: 'Sábado: 8:00 – 15:00'
   },
-  logoUrl: 'https://clintongold.com.br/storage/2024/08/clintogold-logo-300x50.webp'
+  logoUrl: '/imagens/clintogold-logo.webp'
 };

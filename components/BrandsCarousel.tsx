@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useState, useRef, useEffect } from 'react';
 
 const BRANDS = [
   { 
@@ -24,6 +26,55 @@ const BRANDS = [
 ];
 
 const BrandsCarousel: React.FC = () => {
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // Distância mínima para considerar um swipe
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+    setIsDragging(true);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) {
+      setIsDragging(false);
+      return;
+    }
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (scrollContainerRef.current) {
+      const scrollAmount = 200; // Quantidade de scroll por swipe
+      
+      if (isLeftSwipe) {
+        scrollContainerRef.current.scrollBy({
+          left: scrollAmount,
+          behavior: 'smooth'
+        });
+      } else if (isRightSwipe) {
+        scrollContainerRef.current.scrollBy({
+          left: -scrollAmount,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    setIsDragging(false);
+    setTouchStart(null);
+    setTouchEnd(null);
+  };
+
   return (
     <section className="py-12 md:py-24 bg-black overflow-hidden relative">
       {/* Divider sutil */}
@@ -39,24 +90,51 @@ const BrandsCarousel: React.FC = () => {
           <div className="hidden md:block absolute inset-y-0 left-0 w-32 md:w-64 z-20 bg-gradient-to-r from-black via-black to-transparent pointer-events-none"></div>
           <div className="hidden md:block absolute inset-y-0 right-0 w-32 md:w-64 z-20 bg-gradient-to-l from-black via-black to-transparent pointer-events-none"></div>
 
-          <div className="flex animate-marquee-premium whitespace-nowrap items-center py-4 relative z-10">
-            {/* Triplicamos para garantir o loop sem interrupção */}
-            {[...BRANDS, ...BRANDS, ...BRANDS].map((brand, idx) => (
+          {/* Mobile: Scroll horizontal com swipe */}
+          <div 
+            ref={scrollContainerRef}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+            className="md:hidden flex overflow-x-auto scrollbar-hide items-center py-4 relative z-10 snap-x snap-mandatory"
+            style={{ 
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+              WebkitOverflowScrolling: 'touch'
+            }}
+          >
+            {[...BRANDS, ...BRANDS].map((brand, idx) => (
               <div 
                 key={idx} 
-                className="flex-shrink-0 mx-6 md:mx-8 group transition-all duration-1000"
+                className="flex-shrink-0 mx-6 snap-center group transition-all duration-1000"
               >
                 <img 
                   src={brand.logo} 
                   alt={brand.name} 
-                  className="h-24 md:h-24 w-auto object-contain rounded-lg group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-all duration-700 ease-in-out" 
+                  className="h-24 w-auto object-contain rounded-lg group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-all duration-700 ease-in-out" 
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop: Animação automática */}
+          <div className="hidden md:flex animate-marquee-premium whitespace-nowrap items-center py-4 relative z-10">
+            {/* Triplicamos para garantir o loop sem interrupção */}
+            {[...BRANDS, ...BRANDS, ...BRANDS].map((brand, idx) => (
+              <div 
+                key={idx} 
+                className="flex-shrink-0 mx-8 group transition-all duration-1000"
+              >
+                <img 
+                  src={brand.logo} 
+                  alt={brand.name} 
+                  className="h-24 w-auto object-contain rounded-lg group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-all duration-700 ease-in-out" 
                 />
               </div>
             ))}
           </div>
         </div>
       </div>
-
     </section>
   );
 };

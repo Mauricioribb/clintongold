@@ -34,21 +34,9 @@ export default async function SobrePage() {
       {/* Sobre Nós Section */}
       <section className="py-12 md:py-[50px] px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Imagem - Primeiro no mobile */}
-            <div className="relative order-1 lg:order-2">
-              <div className="absolute -top-10 -right-10 w-40 h-40 bg-gold/10 rounded-full blur-3xl animate-pulse"></div>
-              <div className="relative z-10 rounded-[10px] overflow-hidden shadow-2xl shadow-gold/10 border border-white/5 bg-neutral-900">
-                <img 
-                  src="/imagens/sobre/Dinheiro-e-Joias-de-ouro-600x600.jpeg" 
-                  alt="Clinton Joalheria - Ouro e Joias" 
-                  className="w-full h-[400px] md:h-[500px] object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
-                />
-              </div>
-            </div>
-
-            {/* Texto - Segundo no mobile */}
-            <div className="order-2 lg:order-1">
+          <div className="max-w-4xl mx-auto">
+            {/* Texto */}
+            <div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tight mb-8 text-white">
                 Sobre Nós
               </h2>
@@ -68,10 +56,6 @@ export default async function SobrePage() {
       {/* Cards de Destaque */}
       <section className="py-12 md:py-[50px] px-4 md:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tight mb-12 text-center text-gray-800">
-            COM A CLINTON JOALHERIA
-          </h2>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Card 1 - Avaliação Gratuita */}
             <div className="bg-black border border-white/10 rounded-[10px] p-8 text-center hover:border-gold/50 transition-all">

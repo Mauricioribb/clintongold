@@ -64,7 +64,7 @@ const About: React.FC = () => {
                     <p className="text-black font-black text-lg uppercase tracking-wide leading-none">Especialistas</p>
                   </div>
                   <p className="text-sm text-gray-800 font-medium leading-relaxed">
-                    Peritos gemólogos e relojoeiros experientes no mercado internacional de luxo.
+                    Peritos na avaliação de Ouro e outros metais preciosos, relógios de luxo e diamantes.
                   </p>
                 </div>
               </div>

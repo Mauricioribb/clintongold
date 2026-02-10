@@ -6,7 +6,7 @@ import { CONTACT_INFO } from '../constants';
 import { useSettings } from './SettingsProvider';
 
 const Footer: React.FC = () => {
-  const { whatsappUrl, whatsappNumber } = useSettings();
+  const { whatsappUrl, whatsappNumber, salesDisabled } = useSettings();
   return (
     <footer id="contato" className="bg-[#050505] pt-12 md:pt-24 pb-6 md:pb-12 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
@@ -33,10 +33,14 @@ const Footer: React.FC = () => {
             <ul className="space-y-2 md:space-y-4">
               <li><a href="/sobre" className="text-white hover:text-gold transition-colors font-light">Sobre Nós</a></li>
               <li><a href="/contato" className="text-white hover:text-gold transition-colors font-light">Fale Conosco</a></li>
-              <li><a href="/formas-de-envio" className="text-white hover:text-gold transition-colors font-light">Formas de Envio</a></li>
-              <li><a href="/formas-de-pagamento" className="text-white hover:text-gold transition-colors font-light">Formas de Pagamento</a></li>
+              {!salesDisabled && (
+                <>
+                  <li><a href="/formas-de-envio" className="text-white hover:text-gold transition-colors font-light">Formas de Envio</a></li>
+                  <li><a href="/formas-de-pagamento" className="text-white hover:text-gold transition-colors font-light">Formas de Pagamento</a></li>
+                  <li><a href="/politica-de-reembolso-devolucao" className="text-white hover:text-gold transition-colors font-light">Política de Reembolso e Devolução</a></li>
+                </>
+              )}
               <li><a href="/politica-de-privacidade" className="text-white hover:text-gold transition-colors font-light">Política de Privacidade</a></li>
-              <li><a href="/politica-de-reembolso-devolucao" className="text-white hover:text-gold transition-colors font-light">Política de Reembolso e Devolução</a></li>
             </ul>
           </div>
 
