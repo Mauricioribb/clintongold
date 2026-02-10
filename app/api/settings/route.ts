@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import { executeQuery } from '@/lib/db-helper';
 import { generateId } from '@/lib/utils';
 
@@ -28,6 +29,17 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    // Verificar autenticação
+    const cookieStore = await cookies();
+    const auth = cookieStore.get('admin_auth');
+    
+    if (auth?.value !== 'authenticated') {
+      return NextResponse.json(
+        { error: 'Não autorizado' },
+        { status: 401 }
+      );
+    }
+
     const body = await request.json();
     const { key, value } = body;
 

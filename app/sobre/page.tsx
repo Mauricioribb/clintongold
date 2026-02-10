@@ -71,13 +71,13 @@ export default async function SobrePage() {
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tight mb-12 text-center text-gray-800">
             COM A CLINTON JOALHERIA
           </h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Card 1 - Avaliação Gratuita */}
             <div className="bg-black border border-white/10 rounded-[10px] p-8 text-center hover:border-gold/50 transition-all">
               <div className="flex justify-center mb-6">
                 <ClipboardCheck size={48} className="text-white" />
-              </div>
+                  </div>
               <h3 className="text-2xl md:text-3xl font-black uppercase mb-4 text-white">
                 AVALIAÇÃO GRATUITA
               </h3>
@@ -101,7 +101,7 @@ export default async function SobrePage() {
             <div className="bg-black border border-white/10 rounded-[10px] p-8 text-center hover:border-gold/50 transition-all">
               <div className="flex justify-center mb-6">
                 <TrendingUp size={48} className="text-white" />
-              </div>
+            </div>
               <h3 className="text-2xl md:text-3xl font-black uppercase mb-4 text-white">
                 MELHOR COTAÇÃO
               </h3>

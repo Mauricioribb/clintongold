@@ -12,6 +12,7 @@ import ProductCard from '../components/ProductCard';
 import { Product, SliderImage } from '../types';
 import Link from 'next/link';
 import { executeQuery } from '../lib/db-helper';
+import { getSettings } from '../lib/settings';
 
 // ISR: Revalida apenas quando solicitado via /api/revalidate
 export const revalidate = false; // Cache permanente
@@ -76,25 +77,29 @@ async function getSliderImages(): Promise<SliderImage[]> {
 
 export default async function HomePage() {
   // Buscar dados em paralelo das APIs internas
-  const [featuredProducts, highlightedProducts, sliderImages] = await Promise.all([
+  const [featuredProducts, highlightedProducts, sliderImages, settings] = await Promise.all([
     getFeaturedProducts(),
     getHighlightedProducts(),
-    getSliderImages()
+    getSliderImages(),
+    getSettings()
   ]);
+
+  // Verificar se vendas estão desativadas
+  const salesDisabled = settings.sales_disabled === 'true' || settings.sales_disabled === true;
 
   return (
     <Layout>
       <Hero slides={sliderImages} />
-      {/* Carrossel de Produtos em Destaque com foto de fundo */}
-      {highlightedProducts.length > 0 && (
+      {/* Carrossel de Produtos em Destaque com foto de fundo - Ocultar se vendas desativadas */}
+      {!salesDisabled && highlightedProducts.length > 0 && (
         <FeaturedProductCarousel products={highlightedProducts} />
       )}
       <BrandMessage />
       <Features />
       <About />
       
-      {/* Produtos em Destaque */}
-      {featuredProducts.length > 0 && (
+      {/* Produtos em Destaque - Ocultar se vendas desativadas */}
+      {!salesDisabled && featuredProducts.length > 0 && (
         <section className="py-12 md:py-24 bg-black px-4 md:px-8">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-8 md:mb-16">

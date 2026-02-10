@@ -9,11 +9,15 @@ interface SettingsFormProps {
 
 export default function SettingsForm({ initialSettings }: SettingsFormProps) {
   const [whatsappNumber, setWhatsappNumber] = useState(initialSettings.whatsapp_number || '');
+  const [salesDisabled, setSalesDisabled] = useState(
+    initialSettings.sales_disabled === 'true' || initialSettings.sales_disabled === true
+  );
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   useEffect(() => {
     setWhatsappNumber(initialSettings.whatsapp_number || '');
+    setSalesDisabled(initialSettings.sales_disabled === 'true' || initialSettings.sales_disabled === true);
   }, [initialSettings]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -31,7 +35,8 @@ export default function SettingsForm({ initialSettings }: SettingsFormProps) {
         return;
       }
 
-      const response = await fetch('/api/settings', {
+      // Salvar WhatsApp
+      const whatsappResponse = await fetch('/api/settings', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -42,8 +47,24 @@ export default function SettingsForm({ initialSettings }: SettingsFormProps) {
         }),
       });
 
-      if (!response.ok) {
-        throw new Error('Erro ao salvar configuração');
+      if (!whatsappResponse.ok) {
+        throw new Error('Erro ao salvar configuração do WhatsApp');
+      }
+
+      // Salvar sales_disabled
+      const salesResponse = await fetch('/api/settings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          key: 'sales_disabled',
+          value: salesDisabled ? 'true' : 'false',
+        }),
+      });
+
+      if (!salesResponse.ok) {
+        throw new Error('Erro ao salvar configuração de vendas');
       }
 
       setMessage({ type: 'success', text: 'Configurações salvas com sucesso!' });
@@ -106,6 +127,29 @@ export default function SettingsForm({ initialSettings }: SettingsFormProps) {
           <p className="mt-1 text-xs text-gray-400">
             O número será usado em todos os links do WhatsApp no site.
           </p>
+        </div>
+
+        <div className="border-t border-gray-200 pt-6">
+          <div className="flex items-start space-x-3">
+            <input
+              type="checkbox"
+              id="sales_disabled"
+              checked={salesDisabled}
+              onChange={(e) => setSalesDisabled(e.target.checked)}
+              className="mt-1 w-5 h-5 text-gold border-gray-300 rounded focus:ring-gold focus:ring-2"
+            />
+            <div className="flex-1">
+              <label htmlFor="sales_disabled" className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide cursor-pointer">
+                Desativar Vendas
+              </label>
+              <p className="text-sm text-gray-600 mb-2">
+                Quando ativado, oculta o menu "Jóias", o bloco "Produtos Novos" e o carrossel de destaques da home.
+              </p>
+              <p className="text-xs text-gray-400">
+                Isso é útil quando você quer focar apenas na compra de joias, sem exibir produtos à venda.
+              </p>
+            </div>
+          </div>
         </div>
 
         {message && (

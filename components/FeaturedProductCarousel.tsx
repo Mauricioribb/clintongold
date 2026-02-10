@@ -250,20 +250,20 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
             {/* Galeria de Fotos (30% de largura) */}
             <div className="md:w-[30%] bg-neutral-50 relative flex items-center justify-center p-6 border-b md:border-b-0 md:border-r border-neutral-100 min-h-[300px]">
               {lightboxImages.length > 0 && lightboxImages[currentImageIndex] && (
-                <img 
+                    <img 
                   src={lightboxImages[currentImageIndex]} 
-                  alt={lightboxProduct.name} 
-                  className="max-w-full max-h-[35vh] md:max-h-[60vh] object-contain"
+                      alt={lightboxProduct.name} 
+                      className="max-w-full max-h-[35vh] md:max-h-[60vh] object-contain"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.src = lightboxProduct.image; // Fallback para imagem principal
                   }}
-                />
+                    />
               )}
-              
+                    
               {lightboxImages.length > 1 && (
-                <>
-                  <button 
+                      <>
+                        <button 
                     onClick={(e) => {
                       e.stopPropagation();
                       e.preventDefault();
@@ -272,10 +272,10 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
                     className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-white hover:bg-gray-50 rounded-full text-black shadow-xl transition-all z-[100] border-2 border-gray-400 hover:border-gray-600"
                     aria-label="Imagem anterior"
                     type="button"
-                  >
+                        >
                     <ChevronLeft size={28} strokeWidth={3} />
-                  </button>
-                  <button 
+                        </button>
+                        <button 
                     onClick={(e) => {
                       e.stopPropagation();
                       e.preventDefault();
@@ -284,9 +284,9 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
                     className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-white hover:bg-gray-50 rounded-full text-black shadow-xl transition-all z-[100] border-2 border-gray-400 hover:border-gray-600"
                     aria-label="Próxima imagem"
                     type="button"
-                  >
+                        >
                     <ChevronRight size={28} strokeWidth={3} />
-                  </button>
+                        </button>
                   
                   {/* Indicador de posição */}
                   <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-[100]">
@@ -306,8 +306,8 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
                       />
                     ))}
                   </div>
-                </>
-              )}
+                      </>
+                    )}
             </div>
 
             {/* Informações (70% de largura) */}

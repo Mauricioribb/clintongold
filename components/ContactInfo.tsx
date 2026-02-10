@@ -106,7 +106,7 @@ ${formData.message}`;
 
           {/* Formulário e Mapa em duas colunas */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Formulário de Contato */}
+          {/* Formulário de Contato */}
             <div className="bg-white border border-gray-200 rounded-[10px] p-6 md:p-8 shadow-sm">
               <h2 className="text-base md:text-xl font-bold mb-4 text-center uppercase text-black">Envie Sua Mensagem</h2>
               <form className="space-y-4" onSubmit={handleSubmit}>

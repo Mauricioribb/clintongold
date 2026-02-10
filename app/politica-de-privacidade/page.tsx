@@ -26,7 +26,7 @@ export default function PoliticaDePrivacidadePage() {
             <h2 className="text-base md:text-2xl font-bold mb-4 md:mb-6 uppercase text-gold flex items-center gap-3">
               <FileText size={28} />
               1. Coleta de Informações
-            </h2>
+              </h2>
             <div className="space-y-4 text-gray-300 text-sm md:text-base leading-relaxed">
               <p>
                 Coletamos informações pessoais fornecidas diretamente por você, como:
@@ -48,14 +48,14 @@ export default function PoliticaDePrivacidadePage() {
                 <li>Data e hora de acesso</li>
               </ul>
             </div>
-          </div>
+            </div>
 
           {/* 2. Uso das Informações */}
           <div className="bg-white/5 border border-white/10 rounded-[10px] p-6 md:p-12">
             <h2 className="text-base md:text-2xl font-bold mb-4 md:mb-6 uppercase text-gold flex items-center gap-3">
               <Eye size={28} />
               2. Uso das Informações
-            </h2>
+              </h2>
             <div className="space-y-4 text-gray-300 text-sm md:text-base leading-relaxed">
               <p>
                 Utilizamos suas informações para:
@@ -67,14 +67,14 @@ export default function PoliticaDePrivacidadePage() {
                 <li>Enviar ofertas e promoções, caso tenha optado por recebê-las</li>
               </ul>
             </div>
-          </div>
+            </div>
 
           {/* 3. Compartilhamento de Informações */}
           <div className="bg-white/5 border border-white/10 rounded-[10px] p-6 md:p-12">
             <h2 className="text-base md:text-2xl font-bold mb-4 md:mb-6 uppercase text-gold flex items-center gap-3">
               <Share2 size={28} />
               3. Compartilhamento de Informações
-            </h2>
+              </h2>
             <div className="space-y-4 text-gray-300 text-sm md:text-base leading-relaxed">
               <p>
                 Não compartilhamos suas informações pessoais com terceiros, exceto quando necessário para:
@@ -100,14 +100,14 @@ export default function PoliticaDePrivacidadePage() {
                 No entanto, nenhuma transmissão de dados pela internet é completamente segura, e não podemos garantir a segurança absoluta.
               </p>
             </div>
-          </div>
+            </div>
 
           {/* 5. Cookies */}
           <div className="bg-white/5 border border-white/10 rounded-[10px] p-6 md:p-12">
             <h2 className="text-base md:text-2xl font-bold mb-4 md:mb-6 uppercase text-gold flex items-center gap-3">
               <Cookie size={28} />
               5. Cookies
-            </h2>
+              </h2>
             <div className="space-y-4 text-gray-300 text-sm md:text-base leading-relaxed">
               <p>
                 Utilizamos cookies para melhorar a funcionalidade do nosso site e personalizar sua experiência.
@@ -116,7 +116,7 @@ export default function PoliticaDePrivacidadePage() {
                 Você pode configurar seu navegador para recusar cookies, mas isso pode afetar a funcionalidade do site.
               </p>
             </div>
-          </div>
+            </div>
 
           {/* 6. Seus Direitos */}
           <div className="bg-white/5 border border-white/10 rounded-[10px] p-6 md:p-12">
@@ -140,7 +140,7 @@ export default function PoliticaDePrivacidadePage() {
                 </a>.
               </p>
             </div>
-          </div>
+            </div>
 
           {/* 7. Alterações nesta Política */}
           <div className="bg-white/5 border border-white/10 rounded-[10px] p-6 md:p-12">

@@ -13,7 +13,15 @@ const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const pathname = usePathname();
-  const { whatsappUrl } = useSettings();
+  const { whatsappUrl, salesDisabled } = useSettings();
+  
+  // Filtrar menu "Jóias" se vendas estiverem desativadas
+  const filteredNavItems = NAV_ITEMS.filter(item => {
+    if (salesDisabled && item.label === 'Jóias') {
+      return false;
+    }
+    return true;
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,7 +41,7 @@ const Navbar: React.FC = () => {
 
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center space-x-8">
-          {NAV_ITEMS.map((item) => (
+          {filteredNavItems.map((item) => (
             <Link
               key={item.label}
               href={item.href}
@@ -83,7 +91,7 @@ const Navbar: React.FC = () => {
       {/* Mobile Menu */}
       <div className={`lg:hidden absolute top-full left-0 w-full bg-black border-b border-[#d4af37]/50 overflow-hidden transition-all duration-300 ${isMobileMenuOpen ? 'max-h-screen py-8' : 'max-h-0'}`}>
         <div className="flex flex-col items-center space-y-6 px-4">
-          {NAV_ITEMS.map((item) => (
+          {filteredNavItems.map((item) => (
             <Link
               key={item.label}
               href={item.href}

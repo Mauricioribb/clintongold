@@ -25,7 +25,7 @@ export default function PoliticaDeReembolsoDevolucaoPage() {
             <h2 className="text-base md:text-2xl font-bold mb-4 md:mb-6 uppercase text-gold flex items-center gap-3">
               <Clock size={28} />
               1. Prazo para Devolução
-            </h2>
+              </h2>
             <div className="space-y-4 text-gray-300 text-sm md:text-base leading-relaxed">
               <p>
                 Você tem até 7 dias corridos a partir do recebimento do produto para solicitar a devolução, conforme previsto pelo Código de Defesa do Consumidor (art. 49).
@@ -34,14 +34,14 @@ export default function PoliticaDeReembolsoDevolucaoPage() {
                 Produtos com defeito ou avarias podem ser solicitados para troca em até 30 dias corridos após o recebimento.
               </p>
             </div>
-          </div>
+            </div>
 
           {/* 2. Condições do Produto */}
           <div className="bg-white/5 border border-white/10 rounded-[10px] p-6 md:p-12">
             <h2 className="text-base md:text-2xl font-bold mb-4 md:mb-6 uppercase text-gold flex items-center gap-3">
               <Package size={28} />
               2. Condições do Produto
-            </h2>
+              </h2>
             <div className="space-y-4 text-gray-300 text-sm md:text-base leading-relaxed">
               <p>
                 Para que a devolução ou troca seja aceita, o produto deve estar:
@@ -52,14 +52,14 @@ export default function PoliticaDeReembolsoDevolucaoPage() {
                 <li>Acompanhado da nota fiscal.</li>
               </ul>
             </div>
-          </div>
+            </div>
 
           {/* 3. Produtos que Não Podem Ser Devolvidos */}
           <div className="bg-white/5 border border-white/10 rounded-[10px] p-6 md:p-12">
             <h2 className="text-base md:text-2xl font-bold mb-4 md:mb-6 uppercase text-gold flex items-center gap-3">
               <XCircle size={28} />
               3. Produtos que Não Podem Ser Devolvidos
-            </h2>
+              </h2>
             <div className="space-y-4 text-gray-300 text-sm md:text-base leading-relaxed">
               <p>
                 Não aceitamos devolução de:
@@ -68,8 +68,8 @@ export default function PoliticaDeReembolsoDevolucaoPage() {
                 <li>Produtos personalizados ou sob encomenda;</li>
                 <li>Produtos danificados pelo uso inadequado ou mau manuseio.</li>
               </ul>
+              </div>
             </div>
-          </div>
 
           {/* 4. Procedimento de Devolução */}
           <div className="bg-white/5 border border-white/10 rounded-[10px] p-6 md:p-12">
@@ -96,14 +96,14 @@ export default function PoliticaDeReembolsoDevolucaoPage() {
                 O cliente é responsável pelo envio do produto de volta, salvo quando se tratar de produto com defeito.
               </p>
             </div>
-          </div>
+            </div>
 
           {/* 5. Reembolso */}
           <div className="bg-white/5 border border-white/10 rounded-[10px] p-6 md:p-12">
             <h2 className="text-base md:text-2xl font-bold mb-4 md:mb-6 uppercase text-gold flex items-center gap-3">
               <CreditCard size={28} />
               5. Reembolso
-            </h2>
+              </h2>
             <div className="space-y-4 text-gray-300 text-sm md:text-base leading-relaxed">
               <p>
                 O valor será devolvido pelo mesmo meio de pagamento utilizado na compra:
@@ -116,7 +116,7 @@ export default function PoliticaDeReembolsoDevolucaoPage() {
                 O prazo para processamento do reembolso pode variar conforme a forma de pagamento, mas geralmente ocorre em até 10 dias úteis após recebimento e conferência do produto.
               </p>
             </div>
-          </div>
+            </div>
 
           {/* 6. Troca por Outro Produto */}
           <div className="bg-white/5 border border-white/10 rounded-[10px] p-6 md:p-12">

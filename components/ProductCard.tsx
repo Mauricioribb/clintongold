@@ -158,15 +158,15 @@ const ProductCard: React.FC<Props> = ({ product }) => {
             {/* Galeria de Fotos (30% de largura) */}
             <div className="md:w-[30%] bg-neutral-50 relative flex items-center justify-center p-6 border-b md:border-b-0 md:border-r border-neutral-100 min-h-[300px]">
               {images.length > 0 && images[currentImageIndex] && (
-                <img 
-                  src={images[currentImageIndex]} 
-                  alt={product.name} 
-                  className="max-w-full max-h-[35vh] md:max-h-[60vh] object-contain"
+              <img 
+                src={images[currentImageIndex]} 
+                alt={product.name} 
+                className="max-w-full max-h-[35vh] md:max-h-[60vh] object-contain"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.src = product.image; // Fallback para imagem principal
                   }}
-                />
+              />
               )}
               
               {images.length > 1 && (

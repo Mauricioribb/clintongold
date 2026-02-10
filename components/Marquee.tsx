@@ -19,7 +19,7 @@ const Marquee: React.FC = () => {
             <span key={idx} className="mx-2 md:mx-8 text-black font-black text-xs tracking-[0.2em] uppercase inline-flex items-center gap-2">
               <Icon size={16} className="flex-shrink-0" />
               {item.text}
-            </span>
+          </span>
           );
         })}
       </div>

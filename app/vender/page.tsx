@@ -45,7 +45,7 @@ export default function VenderPage() {
               <div className="space-y-4 text-gray-300 leading-relaxed text-base md:text-lg">
                 <p>
                   Você já parou para pensar na quantidade de ouro e joias que estão guardadas em sua casa, sem uso? É bem comum termos peças esquecidas em gavetas, cofres ou caixas, seja por estarem fora de moda, por terem perdido o valor sentimental ou simplesmente porque não combinam mais com o nosso estilo.
-                </p>
+              </p>
                 <p>
                   Esses itens, que muitas vezes ficam apenas ocupando espaço, podem se transformar em uma ótima oportunidade de ganho extra. Aqui nós compramos suas joias, avaliamos com transparência, pagamos à vista, garantindo segurança e agilidade em todo o processo, sem contar que temos a melhor avaliação da cidade.
                 </p>
@@ -70,7 +70,7 @@ export default function VenderPage() {
                     alt="Precisa equilibrar as contas?" 
                     className="w-full h-full object-cover"
                   />
-                </div>
+          </div>
               </div>
               <h3 className="text-xl md:text-2xl font-bold uppercase mb-4 text-white">
                 Precisa equilibrar as contas?
@@ -81,7 +81,7 @@ export default function VenderPage() {
                   <span>Suas joias de ouro podem ser a chave para sair do aperto.</span>
                 </li>
               </ul>
-            </div>
+          </div>
 
             {/* Card 2 - Cinza */}
             <div className="bg-gray-200 border border-gray-300 rounded-[10px] p-8 text-center">
