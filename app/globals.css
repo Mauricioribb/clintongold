@@ -38,7 +38,12 @@
     100% { transform: translateX(-33.333%); }
   }
   .animate-marquee-premium {
-    animation: marquee-premium 40s linear infinite;
+    animation: marquee-premium 20s linear infinite;
+  }
+  @media (min-width: 768px) {
+    .animate-marquee-premium {
+      animation: marquee-premium 40s linear infinite;
+    }
   }
   .animate-marquee-premium:hover {
     animation-play-state: paused;

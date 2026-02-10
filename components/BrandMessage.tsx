@@ -11,19 +11,19 @@ const JEWELRY_THUMBS = [
 
 const BrandMessage: React.FC = () => {
   return (
-    <section className="py-20 bg-black relative overflow-hidden">
+    <section className="py-10 md:py-20 bg-black relative overflow-hidden">
       {/* Elementos decorativos sutis */}
       <div className="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 bg-gold/5 rounded-full blur-[100px] pointer-events-none"></div>
       <div className="absolute top-1/2 right-0 -translate-y-1/2 w-64 h-64 bg-gold/5 rounded-full blur-[100px] pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 md:px-8 text-center relative z-10">
-        <div className="bg-white rounded-[10px] p-5 shadow-2xl" style={{ paddingLeft: '80px', paddingRight: '80px' }}>
+        <div className="bg-white rounded-[10px] px-5 md:px-20 py-5 shadow-2xl">
           <div className="inline-block mb-8">
             <div className="w-12 h-[1px] bg-gold/50 mx-auto"></div>
             <div className="mt-2 text-gold text-[10px] tracking-[0.5em] uppercase font-bold">Exclusividade & Tradição</div>
           </div>
           
-          <p className="text-xl md:text-2xl lg:text-3xl font-bold leading-relaxed md:leading-snug text-gray-600" style={{ fontSize: '18px', lineHeight: '25px' }}>
+          <p className="text-[14px] md:text-2xl lg:text-3xl font-bold leading-[20px] md:leading-snug text-gray-600">
             Somos especializados na <span className="text-gold">compra e venda de ouro</span>, joias exclusivas e relógios de luxo. 
             Trabalhamos com transparência, avaliação justa e peças selecionadas com rigor. 
             Oferecemos um <span className="text-gold">atendimento personalizado</span>, garantindo segurança, confiança e valorização máxima dos seus bens preciosos.

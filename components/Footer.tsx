@@ -8,11 +8,11 @@ import { useSettings } from './SettingsProvider';
 const Footer: React.FC = () => {
   const { whatsappUrl, whatsappNumber } = useSettings();
   return (
-    <footer id="contato" className="bg-[#050505] pt-24 pb-12 border-t border-white/5">
+    <footer id="contato" className="bg-[#050505] pt-12 md:pt-24 pb-6 md:pb-12 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
-          <div className="space-y-6">
-            <img src={CONTACT_INFO.logoUrl} alt="Clinton Gold" className="h-10 w-auto mb-8" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-12 mb-10 md:mb-20">
+          <div className="space-y-4 md:space-y-6">
+            <img src={CONTACT_INFO.logoUrl} alt="Clinton Gold" className="h-10 w-auto mb-4 md:mb-8" />
             <p className="text-gray-400 font-light leading-relaxed" style={{ color: 'var(--tw-ring-offset-color)' }}>
               Clinton Gold – Sua joalheria de referência para Compra e Venda de Ouro e Joias.
             </p>
@@ -28,9 +28,9 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          <div className="space-y-6">
-            <h4 className="text-lg font-bold text-gold uppercase tracking-widest mb-8">Institucional</h4>
-            <ul className="space-y-4">
+          <div className="space-y-4 md:space-y-6">
+            <h4 className="text-lg font-bold text-gold uppercase tracking-widest mb-4 md:mb-8">Institucional</h4>
+            <ul className="space-y-2 md:space-y-4">
               <li><a href="/sobre" className="text-white hover:text-gold transition-colors font-light">Sobre Nós</a></li>
               <li><a href="/contato" className="text-white hover:text-gold transition-colors font-light">Fale Conosco</a></li>
               <li><a href="/formas-de-envio" className="text-white hover:text-gold transition-colors font-light">Formas de Envio</a></li>
@@ -40,9 +40,9 @@ const Footer: React.FC = () => {
             </ul>
           </div>
 
-          <div className="space-y-6">
-            <h4 className="text-lg font-bold text-gold uppercase tracking-widest mb-8">Precisa de Ajuda?</h4>
-            <div className="space-y-6">
+          <div className="space-y-4 md:space-y-6">
+            <h4 className="text-lg font-bold text-gold uppercase tracking-widest mb-4 md:mb-8">Precisa de Ajuda?</h4>
+            <div className="space-y-4 md:space-y-6">
               <div className="flex items-start space-x-4 group">
                 <div className="p-2 bg-gold/10 rounded-lg text-gold group-hover:bg-gold group-hover:text-black transition-all">
                   <Phone size={18} />
@@ -73,8 +73,8 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          <div className="space-y-6">
-            <h4 className="text-lg font-bold text-gold uppercase tracking-widest mb-8">Horários</h4>
+          <div className="space-y-4 md:space-y-6">
+            <h4 className="text-lg font-bold text-gold uppercase tracking-widest mb-4 md:mb-8">Horários</h4>
             <div className="p-6 bg-white/5 border border-white/10 rounded-[10px]">
               <p className="text-sm text-gray-300 mb-4">{CONTACT_INFO.hours.week}</p>
               <p className="text-sm text-gray-300">{CONTACT_INFO.hours.saturday}</p>
@@ -85,7 +85,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-center md:text-left">
+        <div className="pt-6 md:pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-center md:text-left">
           <p className="text-sm text-gray-500 font-light">
             © {new Date().getFullYear()} Clinton Gold. Todos os direitos reservados.
           </p>

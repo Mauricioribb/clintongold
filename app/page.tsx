@@ -17,17 +17,9 @@ export const revalidate = 60;
 
 async function getFeaturedProducts(): Promise<Product[]> {
   try {
-    // Buscar da API interna - usar URL relativa para SSR
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
-                   (typeof window === 'undefined' 
-                     ? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
-                     : '');
-    
-    const apiUrl = baseUrl ? `${baseUrl}/api/products` : '/api/products';
-    
-    const response = await fetch(apiUrl, {
-      next: { revalidate: 60 }, // Cache por 60 segundos
-      cache: 'no-store' // Forçar busca sempre (ISR cuida do cache)
+    // Buscar da API interna - usar URL relativa para SSR/ISR
+    const response = await fetch('/api/products', {
+      next: { revalidate: 60 } // ISR: revalida a cada 60 segundos
     });
 
     if (!response.ok) {
@@ -57,17 +49,9 @@ async function getFeaturedProducts(): Promise<Product[]> {
 
 async function getHighlightedProducts(): Promise<Product[]> {
   try {
-    // Buscar da API interna - usar URL relativa para SSR
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
-                   (typeof window === 'undefined' 
-                     ? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
-                     : '');
-    
-    const apiUrl = baseUrl ? `${baseUrl}/api/products` : '/api/products';
-    
-    const response = await fetch(apiUrl, {
-      next: { revalidate: 60 }, // Cache por 60 segundos
-      cache: 'no-store' // Forçar busca sempre (ISR cuida do cache)
+    // Buscar da API interna - usar URL relativa para SSR/ISR
+    const response = await fetch('/api/products', {
+      next: { revalidate: 60 } // ISR: revalida a cada 60 segundos
     });
 
     if (!response.ok) {
@@ -96,17 +80,9 @@ async function getHighlightedProducts(): Promise<Product[]> {
 
 async function getSliderImages(): Promise<SliderImage[]> {
   try {
-    // Buscar da API interna - usar URL relativa para SSR
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
-                   (typeof window === 'undefined' 
-                     ? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
-                     : '');
-    
-    const apiUrl = baseUrl ? `${baseUrl}/api/slider` : '/api/slider';
-    
-    const response = await fetch(apiUrl, {
-      next: { revalidate: 60 }, // Cache por 60 segundos
-      cache: 'no-store' // Forçar busca sempre (ISR cuida do cache)
+    // Buscar da API interna - usar URL relativa para SSR/ISR
+    const response = await fetch('/api/slider', {
+      next: { revalidate: 60 } // ISR: revalida a cada 60 segundos
     });
 
     if (!response.ok) {
@@ -149,11 +125,11 @@ export default async function HomePage() {
       
       {/* Produtos em Destaque */}
       {featuredProducts.length > 0 && (
-        <section className="py-24 bg-black px-4 md:px-8">
+        <section className="py-12 md:py-24 bg-black px-4 md:px-8">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
+            <div className="text-center mb-8 md:mb-16">
                   <h2 className="text-gold text-sm font-bold tracking-[0.3em] uppercase mb-4">
-                    Coleções Exclusivas
+                    Joias Sob Encomenda
                   </h2>
                   <h3 className="text-4xl md:text-5xl font-bold mb-6 uppercase tracking-tight text-white">
                     Novos Produtos
@@ -161,7 +137,7 @@ export default async function HomePage() {
               <div className="w-24 h-1 bg-gold-gradient mx-auto rounded-full"></div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-[10px]">
               {featuredProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}

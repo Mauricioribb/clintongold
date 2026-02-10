@@ -5,11 +5,15 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Search, Menu, X, Phone } from 'lucide-react';
 import { NAV_ITEMS, CONTACT_INFO } from '../constants';
+import SearchModal from './SearchModal';
+import { useSettings } from './SettingsProvider';
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const pathname = usePathname();
+  const { whatsappUrl } = useSettings();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,7 +28,7 @@ const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex-shrink-0 transition-transform hover:scale-105">
-          <img src={CONTACT_INFO.logoUrl} alt="Clinton Gold" className="h-10 md:h-12 w-auto object-contain" />
+          <img src={CONTACT_INFO.logoUrl} alt="Clinton Gold" className="h-6 md:h-10 w-auto object-contain" />
         </Link>
 
         {/* Desktop Menu */}
@@ -44,11 +48,14 @@ const Navbar: React.FC = () => {
 
         {/* Right Actions */}
         <div className="hidden lg:flex items-center space-x-6">
-          <button className="p-2 hover:text-gold transition-colors">
+          <button 
+            onClick={() => setIsSearchOpen(true)}
+            className="p-2 hover:text-gold transition-colors"
+          >
             <Search size={20} />
           </button>
           <a
-            href={CONTACT_INFO.whatsappUrl}
+            href={whatsappUrl}
             className="flex items-center space-x-2 bg-gold-gradient text-black px-5 py-2.5 rounded-full font-bold text-xs tracking-wider uppercase hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all transform hover:-translate-y-0.5"
           >
             <Phone size={14} fill="currentColor" />
@@ -56,13 +63,21 @@ const Navbar: React.FC = () => {
           </a>
         </div>
 
-        {/* Mobile Toggle */}
-        <button
-          className="lg:hidden p-2 text-gold"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+        {/* Mobile Actions */}
+        <div className="lg:hidden flex items-center space-x-2">
+          <button
+            onClick={() => setIsSearchOpen(true)}
+            className="p-2 text-gold hover:text-gold/80 transition-colors"
+          >
+            <Search size={24} />
+          </button>
+          <button
+            className="p-2 text-gold"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -80,8 +95,18 @@ const Navbar: React.FC = () => {
               {item.label}
             </Link>
           ))}
+          <button
+            onClick={() => {
+              setIsSearchOpen(true);
+              setIsMobileMenuOpen(false);
+            }}
+            className="w-full flex items-center justify-center space-x-2 bg-white/5 border border-white/10 text-white py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-white/10 transition-all"
+          >
+            <Search size={18} />
+            <span>Buscar Produtos</span>
+          </button>
           <a
-            href={CONTACT_INFO.whatsappUrl}
+            href={whatsappUrl}
             className="w-full flex items-center justify-center space-x-2 bg-gold-gradient text-black py-4 rounded-xl font-bold uppercase tracking-widest"
           >
             <Phone size={18} fill="currentColor" />
@@ -89,6 +114,9 @@ const Navbar: React.FC = () => {
           </a>
         </div>
       </div>
+
+      {/* Search Modal */}
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </nav>
   );
 };

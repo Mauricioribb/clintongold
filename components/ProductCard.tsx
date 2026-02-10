@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { MessageCircle, Info, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Product } from '../types';
-import { CONTACT_INFO } from '../constants';
+import { useSettings } from './SettingsProvider';
 
 interface Props {
   product: Product;
@@ -12,10 +12,11 @@ interface Props {
 const ProductCard: React.FC<Props> = ({ product }) => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const { whatsappUrl } = useSettings();
 
   const images = [product.image, ...(product.gallery || [])];
   const whatsappMsg = `Olá, tenho interesse no produto: ${product.name} (Ref: ${product.reference})`;
-  const finalLink = `${CONTACT_INFO.whatsappUrl}?text=${encodeURIComponent(whatsappMsg)}`;
+  const finalLink = `${whatsappUrl}?text=${encodeURIComponent(whatsappMsg)}`;
 
   const nextImage = () => setCurrentImageIndex((prev) => (prev + 1) % images.length);
   const prevImage = () => setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
@@ -24,7 +25,10 @@ const ProductCard: React.FC<Props> = ({ product }) => {
     <>
       <div className="group bg-white rounded-[10px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col border border-neutral-100">
         {/* Imagem do Produto 1x1 sem padding */}
-        <div className="relative aspect-square overflow-hidden bg-neutral-50/50">
+        <div 
+          className="relative aspect-square overflow-hidden bg-neutral-50/50 cursor-pointer"
+          onClick={() => setIsLightboxOpen(true)}
+        >
           <img 
             src={product.image} 
             alt={product.name}
@@ -63,12 +67,15 @@ const ProductCard: React.FC<Props> = ({ product }) => {
               href={finalLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full flex items-center justify-center space-x-2 bg-[#25D366] text-white py-3 rounded-[10px] font-bold uppercase text-sm hover:bg-[#20ba5a] transition-all shadow-sm"
+              className="w-full flex items-center justify-center space-x-1 md:space-x-2 bg-[#25D366] text-white py-3 rounded-[10px] font-bold uppercase text-[10px] md:text-sm hover:bg-[#20ba5a] transition-all shadow-sm"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" className="md:w-5 md:h-5">
                 <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
               </svg>
-              <span>Comprar pelo WhatsApp</span>
+              <span className="whitespace-nowrap">
+                <span className="md:hidden">Comprar WhatsApp</span>
+                <span className="hidden md:inline">Comprar pelo WhatsApp</span>
+              </span>
             </a>
           </div>
         </div>
@@ -125,44 +132,14 @@ const ProductCard: React.FC<Props> = ({ product }) => {
               
               <div className="h-px bg-neutral-100 w-full my-8"></div>
               
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 flex-grow">
-                <div>
-                  <h4 className="text-[10px] font-black uppercase tracking-widest text-black mb-4 flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-gold rounded-full"></div>
-                    Descrição da Peça
-                  </h4>
-                  <p className="text-neutral-600 text-sm leading-relaxed mb-6">
-                    {product.description || "Esta peça majestosa é o ápice da sofisticação da Clinton Gold. Confeccionada com metais de pureza certificada e um design que transcende gerações, esta joia representa não apenas um acessório, mas um investimento em beleza e tradição."}
-                  </p>
-                  <p className="text-neutral-600 text-sm leading-relaxed">
-                    Cada detalhe, desde o polimento espelhado até a cravação artesanal, foi executado por mestres joalheiros para garantir que sua experiência seja inigualável e eterna.
-                  </p>
-                </div>
-                
-                <div className="space-y-6 bg-neutral-50 p-6 rounded-[10px] border border-neutral-100">
-                  <h4 className="text-[10px] font-black uppercase tracking-widest text-black mb-2 flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-gold rounded-full"></div>
-                    Detalhes Técnicos
-                  </h4>
-                  <ul className="space-y-3">
-                    <li className="flex justify-between items-center text-xs">
-                      <span className="text-neutral-400 font-bold uppercase tracking-tighter">Material</span>
-                      <span className="text-black font-medium">Ouro 18k / Platina</span>
-                    </li>
-                    <li className="flex justify-between items-center text-xs">
-                      <span className="text-neutral-400 font-bold uppercase tracking-tighter">Acabamento</span>
-                      <span className="text-black font-medium">Polido de Alta Precisão</span>
-                    </li>
-                    <li className="flex justify-between items-center text-xs">
-                      <span className="text-neutral-400 font-bold uppercase tracking-tighter">Certificação</span>
-                      <span className="text-black font-medium">Garantia Clinton Gold Vitalícia</span>
-                    </li>
-                    <li className="flex justify-between items-center text-xs">
-                      <span className="text-neutral-400 font-bold uppercase tracking-tighter">Disponibilidade</span>
-                      <span className="text-green-600 font-bold">Sob Encomenda</span>
-                    </li>
-                  </ul>
-                </div>
+              <div className="flex-grow">
+                <h4 className="text-[10px] font-black uppercase tracking-widest text-black mb-4 flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 bg-gold rounded-full"></div>
+                  Descrição da Peça
+                </h4>
+                <p className="text-neutral-600 text-sm leading-relaxed">
+                  {product.description || "Item disponível em nossa loja entre em contato"}
+                </p>
               </div>
 
               <div className="mt-12 pt-8 border-t border-neutral-100 flex flex-col sm:flex-row items-center gap-4">

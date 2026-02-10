@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Info, Star, X, MessageCircle } from 'lucide-react';
 import { Product } from '../types';
-import { CONTACT_INFO } from '../constants';
+import { useSettings } from './SettingsProvider';
 
 interface FeaturedProductCarouselProps {
   products: Product[];
@@ -15,13 +15,14 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [lightboxProduct, setLightboxProduct] = useState<Product | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const { whatsappUrl } = useSettings();
 
   // Duplicar produtos para loop infinito
   const duplicatedProducts = [...products, ...products, ...products];
 
   useEffect(() => {
     const updateItemsPerView = () => {
-      setItemsPerView(window.innerWidth < 768 ? 1 : 4);
+      setItemsPerView(window.innerWidth < 768 ? 2 : 4);
     };
     updateItemsPerView();
     window.addEventListener('resize', updateItemsPerView);
@@ -85,7 +86,7 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
             >
               {duplicatedProducts.map((product, idx) => {
                 const whatsappMsg = `Olá, tenho interesse no produto: ${product.name} (Ref: ${product.reference})`;
-                const finalLink = `${CONTACT_INFO.whatsappUrl}?text=${encodeURIComponent(whatsappMsg)}`;
+                const finalLink = `${whatsappUrl}?text=${encodeURIComponent(whatsappMsg)}`;
 
                 return (
                   <div 
@@ -93,7 +94,7 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
                     className="flex-shrink-0 px-2"
                     style={{ width: `${100 / itemsPerView}%` }}
                   >
-                    <div className="relative aspect-square rounded-lg overflow-hidden group">
+                    <div className="relative aspect-[0.88/1] md:aspect-square rounded-lg overflow-hidden group">
                       {/* Imagem de Fundo */}
                       <div className="absolute inset-0">
                         <img 
@@ -112,10 +113,10 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
                       </div>
 
                       {/* Conteúdo sobreposto - no bottom */}
-                      <div className="relative z-10 h-full flex flex-col justify-end items-center p-3 md:p-4">
-                        <div className="w-[70%]">
+                      <div className="relative z-10 h-full flex flex-col justify-end items-center px-2.5 py-3 md:p-4">
+                        <div className="w-[95%] md:w-[70%]">
                           {/* Título - centralizado */}
-                          <h2 className="text-xs md:text-sm font-medium text-white/90 uppercase tracking-tight line-clamp-2 text-center mb-2">
+                          <h2 className="text-xs md:text-sm font-medium text-white/90 uppercase tracking-tight line-clamp-2 text-center mb-1">
                             {product.name}
                           </h2>
                           
@@ -127,7 +128,7 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
                           </div>
 
                           {/* Botões - duas colunas alinhadas à esquerda */}
-                          <div className="flex gap-0.5 w-full">
+                          <div className="flex gap-1 md:gap-0.5 w-full">
                             <button
                               onClick={() => {
                                 setLightboxProduct(product);
@@ -250,50 +251,20 @@ const FeaturedProductCarousel: React.FC<FeaturedProductCarouselProps> = ({ produ
               
               <div className="h-px bg-neutral-100 w-full my-8"></div>
               
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 flex-grow">
-                <div>
-                  <h4 className="text-[10px] font-black uppercase tracking-widest text-black mb-4 flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-gold rounded-full"></div>
-                    Descrição da Peça
-                  </h4>
-                  <p className="text-neutral-600 text-sm leading-relaxed mb-6">
-                    {lightboxProduct.description || "Esta peça majestosa é o ápice da sofisticação da Clinton Gold. Confeccionada com metais de pureza certificada e um design que transcende gerações, esta joia representa não apenas um acessório, mas um investimento em beleza e tradição."}
-                  </p>
-                  <p className="text-neutral-600 text-sm leading-relaxed">
-                    Cada detalhe, desde o polimento espelhado até a cravação artesanal, foi executado por mestres joalheiros para garantir que sua experiência seja inigualável e eterna.
-                  </p>
-                </div>
-                
-                <div className="space-y-6 bg-neutral-50 p-6 rounded-[10px] border border-neutral-100">
-                  <h4 className="text-[10px] font-black uppercase tracking-widest text-black mb-2 flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-gold rounded-full"></div>
-                    Detalhes Técnicos
-                  </h4>
-                  <ul className="space-y-3">
-                    <li className="flex justify-between items-center text-xs">
-                      <span className="text-neutral-400 font-bold uppercase tracking-tighter">Material</span>
-                      <span className="text-black font-medium">Ouro 18k / Platina</span>
-                    </li>
-                    <li className="flex justify-between items-center text-xs">
-                      <span className="text-neutral-400 font-bold uppercase tracking-tighter">Acabamento</span>
-                      <span className="text-black font-medium">Polido de Alta Precisão</span>
-                    </li>
-                    <li className="flex justify-between items-center text-xs">
-                      <span className="text-neutral-400 font-bold uppercase tracking-tighter">Certificação</span>
-                      <span className="text-black font-medium">Garantia Clinton Gold Vitalícia</span>
-                    </li>
-                    <li className="flex justify-between items-center text-xs">
-                      <span className="text-neutral-400 font-bold uppercase tracking-tighter">Disponibilidade</span>
-                      <span className="text-green-600 font-bold">Sob Encomenda</span>
-                    </li>
-                  </ul>
-                </div>
+              <div className="flex-grow">
+                <h4 className="text-[10px] font-black uppercase tracking-widest text-black mb-4 flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 bg-gold rounded-full"></div>
+                  Descrição da Peça
+                </h4>
+                <p className="text-neutral-600 text-sm leading-relaxed">
+                  {lightboxProduct.description || "Item disponível em nossa loja entre em contato"}
+                </p>
               </div>
 
               <div className="mt-12 pt-8 border-t border-neutral-100 flex flex-col sm:flex-row items-center gap-4">
                 {(() => {
                   const whatsappMsg = `Olá, tenho interesse no produto: ${lightboxProduct.name} (Ref: ${lightboxProduct.reference})`;
-                  const finalLink = `${CONTACT_INFO.whatsappUrl}?text=${encodeURIComponent(whatsappMsg)}`;
+                  const finalLink = `${whatsappUrl}?text=${encodeURIComponent(whatsappMsg)}`;
                   return (
                     <a 
                       href={finalLink}

@@ -5,7 +5,7 @@ import { Award, Eye, Users } from 'lucide-react';
 
 const About: React.FC = () => {
   return (
-    <section id="sobre" className="py-24 bg-black overflow-hidden">
+    <section id="sobre" className="py-12 md:py-24 bg-black overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-16">
           <div className="lg:w-1/2 relative">
@@ -14,7 +14,7 @@ const About: React.FC = () => {
               <img 
                 src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?q=80&w=2070&auto=format&fit=crop" 
                 alt="Workshop Joalheria de Luxo" 
-                className="w-full h-[500px] object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
+                className="w-[350px] md:w-full h-[325px] md:h-[500px] object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   target.src = "https://images.unsplash.com/photo-1573408302185-9127fe583ad5?q=80&w=2069&auto=format&fit=crop";
@@ -22,7 +22,7 @@ const About: React.FC = () => {
               />
             </div>
             
-            <div className="absolute -bottom-8 -right-8 bg-gold-gradient p-10 rounded-[10px] shadow-[0_20px_50px_rgba(212,175,55,0.4)] animate-fade-in flex flex-col items-center text-center border-4 border-black/10 z-20">
+            <div className="absolute bottom-4 right-4 md:-bottom-8 md:right-8 bg-gold-gradient p-4 md:p-10 rounded-[10px] shadow-[0_20px_50px_rgba(212,175,55,0.4)] animate-fade-in flex flex-col items-center text-center border-4 border-black/10 z-20 md:[left:332px] md:[top:282px]">
               <div className="bg-black/10 p-3 rounded-full mb-3">
                 <Award size={32} className="text-black" />
               </div>
@@ -34,10 +34,10 @@ const About: React.FC = () => {
           </div>
           
           <div className="lg:w-1/2">
-            <div className="bg-white rounded-[10px] p-8 md:p-12 shadow-2xl">
+            <div className="bg-white rounded-[10px] p-5 shadow-2xl text-center md:text-left">
               <h2 className="text-gold text-sm font-bold tracking-[0.3em] uppercase mb-4">Legado e Confiança</h2>
-              <h3 className="text-4xl md:text-5xl font-bold mb-8 leading-tight uppercase tracking-tight text-gray-800">Sua Loja Referência em Negócios de Ouro</h3>
-              <p className="text-gray-600 text-lg leading-relaxed font-light mb-8">
+              <h3 className="text-[24px] md:text-5xl font-bold mb-8 leading-tight uppercase tracking-tight text-gray-800">Sua Loja Referência em Negócios de Ouro</h3>
+              <p className="text-gray-600 text-base leading-[25.25px] font-light mb-8">
                 A Clinton Gold nasceu da paixão pela alta joalheria e do compromisso com a transparência absoluta. 
                 Trabalhamos com avaliação justa e peças selecionadas com rigor. 
                 Nosso objetivo é oferecer um atendimento personalizado que garanta a segurança e a valorização máxima dos seus bens preciosos.
@@ -51,7 +51,7 @@ const About: React.FC = () => {
                     </div>
                     <p className="text-black font-black text-lg uppercase tracking-wide leading-none">Transparência</p>
                   </div>
-                  <p className="text-sm text-gray-800 font-medium leading-relaxed">
+                  <p className="text-sm text-gray-800 font-medium leading-[18.75px]">
                     Avaliações feitas na sua presença com balanças certificadas e total clareza.
                   </p>
                 </div>
@@ -61,7 +61,7 @@ const About: React.FC = () => {
                     <div className="p-2 bg-black rounded-lg text-white">
                       <Users size={20} />
                     </div>
-                    <p className="text-black font-black text-lg uppercase tracking-wide leading-none">Especialistas</p>
+                    <p className="text-black font-black text-xs uppercase tracking-wide leading-none">Especialistas</p>
                   </div>
                   <p className="text-sm text-gray-800 font-medium leading-relaxed">
                     Peritos gemólogos e relojoeiros experientes no mercado internacional de luxo.

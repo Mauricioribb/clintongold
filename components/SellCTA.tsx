@@ -1,10 +1,12 @@
+'use client';
 
 import React from 'react';
-import { CONTACT_INFO } from '../constants';
+import { useSettings } from './SettingsProvider';
 
 const SellCTA: React.FC = () => {
+  const { whatsappUrl } = useSettings();
   return (
-    <section id="vender" className="py-12 bg-black px-4 md:px-8">
+    <section id="vender" className="py-10 md:py-12 bg-black px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="bg-gold-gradient rounded-[10px] p-10 md:p-16 text-center shadow-2xl relative overflow-hidden group">
           {/* Efeito de brilho ao passar o mouse */}
@@ -20,7 +22,7 @@ const SellCTA: React.FC = () => {
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a 
-                href={CONTACT_INFO.whatsappUrl}
+                href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-10 py-4 bg-black text-white rounded-[10px] font-black uppercase tracking-widest text-xs hover:bg-neutral-800 transition-all shadow-xl active:scale-95"
