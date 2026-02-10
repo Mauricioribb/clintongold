@@ -12,24 +12,14 @@ import ProductCard from '../components/ProductCard';
 import { Product, SliderImage } from '../types';
 import Link from 'next/link';
 
-// Forçar renderização dinâmica para permitir fetch durante build
-export const dynamic = 'force-dynamic';
+// ISR: Cache permanente que revalida apenas quando solicitado
+// Não definir revalidate = cache permanente
 
 async function getFeaturedProducts(): Promise<Product[]> {
   try {
-    // Construir URL absoluta para build estático
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
-                   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 
-                   (typeof window === 'undefined' ? 'http://localhost:3000' : ''));
-    
-    // Se não temos baseUrl durante build, retornar vazio (será preenchido em runtime)
-    if (!baseUrl) {
-      return [];
-    }
-    
-    const apiUrl = `${baseUrl}/api/products`;
-    const response = await fetch(apiUrl, {
-      next: { revalidate: 60 } // ISR: revalida a cada 60 segundos
+    // Cache permanente - revalida apenas quando chamar /api/revalidate
+    const response = await fetch('/api/products', {
+      cache: 'force-cache' // Cache permanente
     });
 
     if (!response.ok) {
@@ -59,19 +49,9 @@ async function getFeaturedProducts(): Promise<Product[]> {
 
 async function getHighlightedProducts(): Promise<Product[]> {
   try {
-    // Construir URL absoluta para build estático
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
-                   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 
-                   (typeof window === 'undefined' ? 'http://localhost:3000' : ''));
-    
-    // Se não temos baseUrl durante build, retornar vazio (será preenchido em runtime)
-    if (!baseUrl) {
-      return [];
-    }
-    
-    const apiUrl = `${baseUrl}/api/products`;
-    const response = await fetch(apiUrl, {
-      next: { revalidate: 60 } // ISR: revalida a cada 60 segundos
+    // Cache permanente - revalida apenas quando chamar /api/revalidate
+    const response = await fetch('/api/products', {
+      cache: 'force-cache' // Cache permanente
     });
 
     if (!response.ok) {
@@ -100,19 +80,9 @@ async function getHighlightedProducts(): Promise<Product[]> {
 
 async function getSliderImages(): Promise<SliderImage[]> {
   try {
-    // Construir URL absoluta para build estático
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
-                   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 
-                   (typeof window === 'undefined' ? 'http://localhost:3000' : ''));
-    
-    // Se não temos baseUrl durante build, retornar vazio (será preenchido em runtime)
-    if (!baseUrl) {
-      return [];
-    }
-    
-    const apiUrl = `${baseUrl}/api/slider`;
-    const response = await fetch(apiUrl, {
-      next: { revalidate: 60 } // ISR: revalida a cada 60 segundos
+    // Cache permanente - revalida apenas quando chamar /api/revalidate
+    const response = await fetch('/api/slider', {
+      cache: 'force-cache' // Cache permanente
     });
 
     if (!response.ok) {

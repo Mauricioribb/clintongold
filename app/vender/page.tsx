@@ -1,6 +1,3 @@
-'use client';
-
-import { useEffect } from 'react';
 import Layout from '../../components/Layout';
 import SellCTA from '../../components/SellCTA';
 import Features from '../../components/Features';
@@ -8,10 +5,6 @@ import { CONTACT_INFO } from '../../constants';
 import { HandCoins, ShieldCheck, Zap, Award } from 'lucide-react';
 
 export default function VenderPage() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   return (
     <Layout>
       {/* Hero Section */}

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { revalidateCache } from '@/lib/utils';
 import { executeQuery } from '@/lib/db-helper';
 
 export async function GET(
@@ -77,6 +78,9 @@ export async function PUT(
       [id]
     );
 
+    // Revalidar cache após atualizar slider
+    await revalidateCache();
+
     return NextResponse.json(results?.[0] || { success: true });
   } catch (error: any) {
     console.error('Erro ao atualizar imagem do slider:', error);
@@ -107,6 +111,9 @@ export async function DELETE(
       'DELETE FROM slider_images WHERE id = ?',
       [id]
     );
+
+    // Revalidar cache após deletar slider
+    await revalidateCache();
 
     return NextResponse.json({ success: true });
   } catch (error: any) {

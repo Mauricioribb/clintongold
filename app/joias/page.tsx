@@ -1,15 +1,41 @@
-'use client';
-
-import { useEffect } from 'react';
 import Layout from '../../components/Layout';
-import Products from '../../components/Products';
-import { PRODUCTS } from '../../constants';
 import ProductCard from '../../components/ProductCard';
+import { Product } from '../../types';
 
-export default function JoiasPage() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+// ISR: Cache permanente que revalida apenas quando solicitado
+async function getProducts(): Promise<Product[]> {
+  try {
+    // Cache permanente - revalida apenas quando chamar /api/revalidate
+    const response = await fetch('/api/products', {
+      cache: 'force-cache' // Cache permanente
+    });
+
+    if (!response.ok) {
+      return [];
+    }
+
+    const products: Product[] = await response.json();
+    
+    // Filtrar apenas produtos ativos
+    return products
+      .filter(p => {
+        const isActive = typeof p.active === 'number' ? p.active === 1 : p.active !== false;
+        return isActive;
+      })
+      .sort((a, b) => {
+        // Ordenar por data de atualização ou criação (mais recente primeiro)
+        const dateA = new Date(a.updatedAt || a.createdAt || 0).getTime();
+        const dateB = new Date(b.updatedAt || b.createdAt || 0).getTime();
+        return dateB - dateA; // Ordem decrescente (mais recente primeiro)
+      });
+  } catch (error) {
+    console.error('Erro ao buscar produtos:', error);
+    return [];
+  }
+}
+
+export default async function JoiasPage() {
+  const products = await getProducts();
 
   return (
     <Layout>
@@ -34,25 +60,43 @@ export default function JoiasPage() {
             <div className="w-24 h-1 bg-gold-gradient mx-auto rounded-full"></div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {PRODUCTS.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          {products.length > 0 ? (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                {products.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
 
-          <div className="mt-20 text-center">
-            <p className="text-gray-400 mb-6">
-              Não encontrou o que procura? Entre em contato conosco para uma peça sob medida.
-            </p>
-            <a
-              href="https://wa.me/5571991369104"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-12 py-5 border border-gold text-gold rounded-full font-bold uppercase tracking-widest hover:bg-gold hover:text-black transition-all duration-300"
-            >
-              Solicitar Orçamento
-            </a>
-          </div>
+              <div className="mt-20 text-center">
+                <p className="text-gray-400 mb-6">
+                  Não encontrou o que procura? Entre em contato conosco para uma peça sob medida.
+                </p>
+                <a
+                  href="https://wa.me/5571991369104"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block px-12 py-5 border border-gold text-gold rounded-full font-bold uppercase tracking-widest hover:bg-gold hover:text-black transition-all duration-300"
+                >
+                  Solicitar Orçamento
+                </a>
+              </div>
+            </>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-gray-400 mb-6">
+                Nenhum produto disponível no momento. Entre em contato conosco para mais informações.
+              </p>
+              <a
+                href="https://wa.me/5571991369104"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-12 py-5 border border-gold text-gold rounded-full font-bold uppercase tracking-widest hover:bg-gold hover:text-black transition-all duration-300"
+              >
+                Solicitar Orçamento
+              </a>
+            </div>
+          )}
         </div>
       </section>
 

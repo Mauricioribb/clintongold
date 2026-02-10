@@ -10,3 +10,18 @@ export function generateId(): string {
     return v.toString(16);
   });
 }
+
+// Função para revalidar cache após mudanças
+export async function revalidateCache(): Promise<void> {
+  try {
+    // Em Server Components, usar revalidatePath diretamente
+    const { revalidatePath } = await import('next/cache');
+    revalidatePath('/');
+    revalidatePath('/joias');
+    revalidatePath('/api/products');
+    revalidatePath('/api/slider');
+  } catch (error) {
+    console.error('Erro ao revalidar cache:', error);
+    // Não falhar a operação se a revalidação falhar
+  }
+}

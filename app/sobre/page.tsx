@@ -1,15 +1,8 @@
-'use client';
-
-import { useEffect } from 'react';
 import Layout from '../../components/Layout';
 import About from '../../components/About';
 import { Award, Eye, Users, ShieldCheck, Zap, HandCoins } from 'lucide-react';
 
 export default function SobrePage() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   return (
     <Layout>
       {/* Hero Section */}

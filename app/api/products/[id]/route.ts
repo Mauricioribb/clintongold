@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { revalidateCache } from '@/lib/utils';
 import { executeQuery } from '@/lib/db-helper';
 
 export async function GET(
@@ -101,6 +102,9 @@ export async function PUT(
       [id]
     );
 
+    // Revalidar cache após atualizar produto
+    await revalidateCache();
+
     return NextResponse.json(results?.[0] || { success: true });
   } catch (error: any) {
     console.error('Erro ao atualizar produto:', error);
@@ -131,6 +135,9 @@ export async function DELETE(
       'DELETE FROM products WHERE id = ?',
       [id]
     );
+
+    // Revalidar cache após deletar produto
+    await revalidateCache();
 
     return NextResponse.json({ success: true });
   } catch (error: any) {

@@ -1,8 +1,9 @@
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
-import { Package, Folder, Image, LogOut } from 'lucide-react';
+import { Package, Folder, Image, LogOut, Settings, RefreshCw } from 'lucide-react';
 import AdminLogin from './components/AdminLogin';
+import ClearCacheButton from './components/ClearCacheButton';
 
 async function checkAuth() {
   const cookieStore = await cookies();
@@ -27,6 +28,7 @@ export default async function AdminPage() {
             <p className="text-gray-600">Gerencie produtos, categorias e slider</p>
           </div>
           <div className="flex items-center space-x-4">
+            <ClearCacheButton />
             <Link
               href="/"
               className="px-4 py-2 border border-gray-300 rounded-lg hover:border-gold transition-all text-gray-700 hover:text-gray-900"
@@ -52,7 +54,7 @@ export default async function AdminPage() {
         </div>
 
         {/* Menu Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <Link
             href="/admin/produtos"
             className="bg-white border border-gray-200 rounded-lg p-6 hover:border-gold hover:shadow-lg transition-all group"
@@ -84,6 +86,17 @@ export default async function AdminPage() {
             </div>
             <h3 className="text-xl font-bold mb-2 text-gray-900">Slider Principal</h3>
             <p className="text-gray-600 text-sm">Gerenciar imagens do slider</p>
+          </Link>
+
+          <Link
+            href="/admin/configuracoes"
+            className="bg-white border border-gray-200 rounded-lg p-6 hover:border-gold hover:shadow-lg transition-all group"
+          >
+            <div className="w-12 h-12 bg-gold-gradient rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <Settings className="text-black" size={24} />
+            </div>
+            <h3 className="text-xl font-bold mb-2 text-gray-900">Configurações</h3>
+            <p className="text-gray-600 text-sm">Configurar WhatsApp e outras opções</p>
           </Link>
         </div>
       </div>

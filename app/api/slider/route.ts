@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { generateId } from '@/lib/utils';
+import { generateId, revalidateCache } from '@/lib/utils';
 import { executeQuery } from '@/lib/db-helper';
 
 export async function GET(request: NextRequest) {
@@ -72,6 +72,9 @@ export async function POST(request: NextRequest) {
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
+
+    // Revalidar cache após criar slider
+    await revalidateCache();
 
     return NextResponse.json(image, { status: 201 });
   } catch (error: any) {

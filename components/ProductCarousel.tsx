@@ -117,8 +117,9 @@ interface ProductCardCompactProps {
 }
 
 const ProductCardCompact: React.FC<ProductCardCompactProps> = ({ product }) => {
-                const whatsappMsg = `Olá, tenho interesse no produto: ${product.name} (Ref: ${product.reference})`;
-                const finalLink = `${whatsappUrl}?text=${encodeURIComponent(whatsappMsg)}`;
+  const { whatsappUrl } = useSettings();
+  const whatsappMsg = `Olá, tenho interesse no produto: ${product.name} (Ref: ${product.reference})`;
+  const finalLink = `${whatsappUrl}?text=${encodeURIComponent(whatsappMsg)}`;
 
   return (
     <div className="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col border border-neutral-100 h-full">
