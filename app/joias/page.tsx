@@ -1,7 +1,7 @@
 import Layout from '../../components/Layout';
-import ProductCard from '../../components/ProductCard';
-import { Product } from '../../types';
+import { Product, Category } from '../../types';
 import { executeQuery } from '../../lib/db-helper';
+import ProductsWithFilter from '../../components/ProductsWithFilter';
 
 // ISR: Revalida apenas quando solicitado via /api/revalidate
 export const revalidate = false; // Cache permanente
@@ -25,69 +25,30 @@ async function getProducts(): Promise<Product[]> {
   }
 }
 
+async function getCategories(): Promise<Category[]> {
+  try {
+    const { results } = await executeQuery(
+      'SELECT * FROM categories ORDER BY name ASC'
+    );
+    return results || [];
+  } catch (error) {
+    console.error('Erro ao buscar categorias:', error);
+    return [];
+  }
+}
+
 export default async function JoiasPage() {
-  const products = await getProducts();
+  const [products, categories] = await Promise.all([
+    getProducts(),
+    getCategories()
+  ]);
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tight mb-6 leading-none">
-            Nossas <span className="text-gold">Jóias</span>
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-400 mb-12 max-w-3xl mx-auto">
-            Coleções exclusivas de joias sob encomenda. Peças únicas criadas com excelência e sofisticação.
-          </p>
-        </div>
-      </section>
-
       {/* Produtos */}
-      <section className="py-24 px-4 md:px-8">
+      <section className="py-[30px] px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-gold text-sm font-bold tracking-[0.3em] uppercase mb-4">Coleções Exclusivas</h2>
-            <h3 className="text-4xl md:text-5xl font-bold mb-6 uppercase tracking-tight">Joias Sob Encomenda</h3>
-            <div className="w-24 h-1 bg-gold-gradient mx-auto rounded-full"></div>
-          </div>
-
-          {products.length > 0 ? (
-            <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                {products.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-
-              <div className="mt-20 text-center">
-                <p className="text-gray-400 mb-6">
-                  Não encontrou o que procura? Entre em contato conosco para uma peça sob medida.
-                </p>
-                <a
-                  href="https://wa.me/5571991369104"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block px-12 py-5 border border-gold text-gold rounded-full font-bold uppercase tracking-widest hover:bg-gold hover:text-black transition-all duration-300"
-                >
-                  Solicitar Orçamento
-                </a>
-              </div>
-            </>
-          ) : (
-            <div className="text-center py-12">
-              <p className="text-gray-400 mb-6">
-                Nenhum produto disponível no momento. Entre em contato conosco para mais informações.
-              </p>
-              <a
-                href="https://wa.me/5571991369104"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block px-12 py-5 border border-gold text-gold rounded-full font-bold uppercase tracking-widest hover:bg-gold hover:text-black transition-all duration-300"
-              >
-                Solicitar Orçamento
-              </a>
-            </div>
-          )}
+          <ProductsWithFilter products={products} categories={categories} />
         </div>
       </section>
 

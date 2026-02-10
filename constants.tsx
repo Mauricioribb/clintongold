@@ -5,8 +5,8 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'Home', href: '/' },
   { label: 'Quero Vender', href: '/vender' },
   { label: 'Jóias', href: '/joias' },
-  { label: 'Contato', href: '/contato' },
   { label: 'Sobre Nós', href: '/sobre' },
+  { label: 'Contato', href: '/contato' },
 ];
 
 export const PRODUCTS: Product[] = [
