@@ -1,115 +1,118 @@
 import Layout from '../../components/Layout';
-import About from '../../components/About';
-import { Award, Eye, Users, ShieldCheck, Zap, HandCoins } from 'lucide-react';
+import Hero from '../../components/Hero';
+import SellCTA from '../../components/SellCTA';
+import { SliderImage } from '../../types';
+import { executeQuery } from '../../lib/db-helper';
+import { ClipboardCheck, HandCoins, TrendingUp } from 'lucide-react';
 
-export default function SobrePage() {
+async function getSliderImages(): Promise<SliderImage[]> {
+  try {
+    const { results } = await executeQuery(
+      'SELECT * FROM slider_images ORDER BY "order" ASC'
+    );
+    const images: SliderImage[] = results || [];
+    
+    // Filtrar apenas imagens ativas
+    return images
+      .filter(img => {
+        const isActive = typeof img.active === 'number' ? img.active === 1 : img.active === true;
+        return isActive;
+      });
+  } catch (error) {
+    console.error('Erro ao buscar slider:', error);
+    return [];
+  }
+}
+
+export default async function SobrePage() {
+  const sliderImages = await getSliderImages();
+
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tight mb-6 leading-none">
-            Sobre <span className="text-gold">Nós</span>
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-400 mb-12 max-w-3xl mx-auto">
-            Mais de 15 anos de tradição e excelência no mercado de joias e ouro.
-          </p>
-        </div>
-      </section>
-
-      <About />
-
-      {/* Nossa História */}
-      <section className="py-24 px-4 md:px-8">
+      <Hero slides={sliderImages} />
+      
+      {/* Sobre Nós Section */}
+      <section className="py-12 md:py-[50px] px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="text-gold text-sm font-bold tracking-[0.3em] uppercase mb-4">Nossa História</h2>
-              <h3 className="text-4xl md:text-5xl font-bold mb-8 uppercase tracking-tight">Legado de Confiança</h3>
-              <div className="space-y-6 text-gray-400 leading-relaxed">
-                <p>
-                  A Clinton Gold nasceu da paixão pela alta joalheria e do compromisso com a transparência absoluta. 
-                  Desde o início, nossa missão foi oferecer um serviço diferenciado no mercado de compra e venda de ouro e joias.
-                </p>
-                <p>
-                  Com mais de 15 anos de experiência, construímos uma reputação sólida baseada na honestidade, 
-                  transparência e excelência no atendimento. Trabalhamos com avaliação justa e peças selecionadas com rigor.
-                </p>
-                <p>
-                  Nosso objetivo é oferecer um atendimento personalizado que garanta a segurança e a valorização máxima 
-                  dos seus bens preciosos, sempre com total transparência e respeito ao cliente.
-                </p>
-              </div>
-            </div>
-            <div className="relative">
-              <div className="absolute -top-10 -left-10 w-40 h-40 bg-gold/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Imagem - Primeiro no mobile */}
+            <div className="relative order-1 lg:order-2">
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-gold/10 rounded-full blur-3xl animate-pulse"></div>
               <div className="relative z-10 rounded-[10px] overflow-hidden shadow-2xl shadow-gold/10 border border-white/5 bg-neutral-900">
                 <img 
-                  src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?q=80&w=2070&auto=format&fit=crop" 
-                  alt="Clinton Gold - Nossa História" 
-                  className="w-full h-[500px] object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
+                  src="/imagens/sobre/Dinheiro-e-Joias-de-ouro-600x600.jpeg" 
+                  alt="Clinton Joalheria - Ouro e Joias" 
+                  className="w-full h-[400px] md:h-[500px] object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
                 />
               </div>
             </div>
+
+            {/* Texto - Segundo no mobile */}
+            <div className="order-2 lg:order-1">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tight mb-8 text-white">
+                Sobre Nós
+              </h2>
+              <div className="space-y-6 text-gray-300 leading-relaxed text-base md:text-lg">
+                <p>
+                  Clinton Joalheria é uma empresa especializada na compra e avaliação de itens de alto valor, incluindo ouro (peças e sucata), joias finas, relógios de luxo, diamantes e outros metais preciosos como prata, platina e paládio. Com uma equipe de avaliadores experientes e procedimentos transparentes, a empresa oferece valores justos de acordo com o mercado atual, baseada em critérios como peso, pureza, autenticidade e valor de revenda.
+                </p>
+                <p>
+                  O processo é seguro e profissional, com atendimento personalizado e pagamento rápido, seja em dinheiro, transferência bancária ou crédito em conta, PIX. A empresa atende tanto clientes que desejam vender peças únicas quanto grandes quantidades de materiais preciosos, garantindo discrição, confiabilidade e conformidade com as normas legais e de segurança do setor.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Valores */}
-      <section className="py-24 px-4 md:px-8 bg-white/5">
+      {/* Cards de Destaque */}
+      <section className="py-12 md:py-[50px] px-4 md:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-gold text-sm font-bold tracking-[0.3em] uppercase mb-4">Nossos Valores</h2>
-            <h3 className="text-4xl md:text-5xl font-bold mb-6 uppercase tracking-tight">O Que Nos Move</h3>
-          </div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tight mb-12 text-center text-gray-800">
+            COM A CLINTON JOALHERIA
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Card 1 - Avaliação Gratuita */}
+            <div className="bg-black border border-white/10 rounded-[10px] p-8 text-center hover:border-gold/50 transition-all">
+              <div className="flex justify-center mb-6">
+                <ClipboardCheck size={48} className="text-white" />
+              </div>
+              <h3 className="text-2xl md:text-3xl font-black uppercase mb-4 text-white">
+                AVALIAÇÃO GRATUITA
+              </h3>
+              <p className="text-gray-300 text-sm mb-2">Avaliação com Profissionais</p>
+              <p className="text-gray-300 text-sm">Gratuito</p>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { icon: ShieldCheck, title: 'Transparência', desc: 'Avaliações feitas na sua presença com total clareza' },
-              { icon: Award, title: 'Excelência', desc: 'Padrões internacionais de qualidade e serviço' },
-              { icon: Users, title: 'Atendimento Personalizado', desc: 'Cada cliente recebe atenção única e dedicada' },
-              { icon: Eye, title: 'Rigor Técnico', desc: 'Peritos gemólogos e relojoeiros experientes' },
-              { icon: Zap, title: 'Agilidade', desc: 'Processo rápido e eficiente do início ao fim' },
-              { icon: HandCoins, title: 'Melhores Preços', desc: 'Avaliamos e pagamos os melhores valores do mercado' },
-            ].map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <div key={index} className="bg-black border border-white/10 rounded-[10px] p-8 hover:border-gold/50 transition-all">
-                  <div className="w-16 h-16 bg-gold-gradient rounded-lg flex items-center justify-center mb-6">
-                    <Icon size={28} className="text-black" />
-                  </div>
-                  <h4 className="text-xl font-bold mb-4 uppercase">{item.title}</h4>
-                  <p className="text-gray-400 leading-relaxed">{item.desc}</p>
-                </div>
-              );
-            })}
+            {/* Card 2 - Pagamento Imediato */}
+            <div className="bg-black border border-white/10 rounded-[10px] p-8 text-center hover:border-gold/50 transition-all">
+              <div className="flex justify-center mb-6">
+                <HandCoins size={48} className="text-white" />
+              </div>
+              <h3 className="text-2xl md:text-3xl font-black uppercase mb-4 text-white">
+                PAGAMENTO IMEDIATO
+              </h3>
+              <p className="text-gray-300 text-sm mb-2">PAGAMENTO SEGURO, NA HORA</p>
+              <p className="text-gray-300 text-sm">Receba com tranquilidade</p>
+            </div>
+
+            {/* Card 3 - Melhor Cotação */}
+            <div className="bg-black border border-white/10 rounded-[10px] p-8 text-center hover:border-gold/50 transition-all">
+              <div className="flex justify-center mb-6">
+                <TrendingUp size={48} className="text-white" />
+              </div>
+              <h3 className="text-2xl md:text-3xl font-black uppercase mb-4 text-white">
+                MELHOR COTAÇÃO
+              </h3>
+              <p className="text-gray-300 text-sm mb-2">Valores justos de mercado</p>
+              <p className="text-gray-300 text-sm">Para você</p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Estatísticas */}
-      <section className="py-24 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-5xl md:text-6xl font-black text-gold mb-4">15+</div>
-              <p className="text-sm uppercase tracking-widest text-gray-400">Anos de Experiência</p>
-            </div>
-            <div>
-              <div className="text-5xl md:text-6xl font-black text-gold mb-4">1000+</div>
-              <p className="text-sm uppercase tracking-widest text-gray-400">Clientes Satisfeitos</p>
-            </div>
-            <div>
-              <div className="text-5xl md:text-6xl font-black text-gold mb-4">5000+</div>
-              <p className="text-sm uppercase tracking-widest text-gray-400">Peças Avaliadas</p>
-            </div>
-            <div>
-              <div className="text-5xl md:text-6xl font-black text-gold mb-4">100%</div>
-              <p className="text-sm uppercase tracking-widest text-gray-400">Transparência</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <SellCTA />
     </Layout>
   );
 }

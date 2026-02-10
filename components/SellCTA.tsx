@@ -29,9 +29,14 @@ const SellCTA: React.FC = () => {
               >
                 Avaliar minhas Joias Agora
               </a>
-              <button className="w-full sm:w-auto px-10 py-4 border-2 border-black/20 text-black rounded-[10px] font-black uppercase tracking-widest text-xs hover:bg-black/5 transition-all">
+              <a 
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto px-10 py-4 border-2 border-black/20 text-black rounded-[10px] font-black uppercase tracking-widest text-xs hover:bg-black/5 transition-all active:scale-95"
+              >
                 Falar com Especialista
-              </button>
+              </a>
             </div>
           </div>
         </div>

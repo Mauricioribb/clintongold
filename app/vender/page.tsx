@@ -1,122 +1,148 @@
 import Layout from '../../components/Layout';
 import SellCTA from '../../components/SellCTA';
-import Features from '../../components/Features';
-import { CONTACT_INFO } from '../../constants';
-import { HandCoins, ShieldCheck, Zap, Award } from 'lucide-react';
+import BrandsCarousel from '../../components/BrandsCarousel';
+import DesapegueSection from '../../components/DesapegueSection';
 
 export default function VenderPage() {
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tight mb-6 leading-none">
-            Quer <span className="text-gold">Vender</span> Suas Joias?
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-400 mb-12 max-w-3xl mx-auto">
-            Avaliamos e compramos ouro, joias e relógios de luxo com transparência total e os melhores preços do mercado.
-          </p>
+      {/* Banner Grande */}
+      <section className="py-12 md:py-[50px] px-4 md:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="relative h-[400px] md:h-[500px] overflow-hidden rounded-[10px]">
+            <img 
+              src="/imagens/querovender/Compramos-Ouro-e-Joias.jpg" 
+              alt="Compramos Ouro e Joias" 
+              className="w-full h-full object-cover"
+            />
+          </div>
         </div>
       </section>
 
-      {/* Processo de Venda */}
-      <section className="py-24 px-4 md:px-8">
+      {/* Bloco com Imagem Pequena e Texto */}
+      <section className="py-12 md:py-[50px] px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-gold text-sm font-bold tracking-[0.3em] uppercase mb-4">Como Funciona</h2>
-            <h3 className="text-4xl md:text-5xl font-bold mb-6 uppercase tracking-tight">Processo Simples e Transparente</h3>
-            <div className="w-24 h-1 bg-gold-gradient mx-auto rounded-full"></div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            <div className="bg-white/5 border border-white/10 rounded-[10px] p-8 text-center hover:border-gold/50 transition-all">
-              <div className="w-16 h-16 bg-gold-gradient rounded-full flex items-center justify-center mx-auto mb-6">
-                <HandCoins size={32} className="text-black" />
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 items-center">
+            {/* Imagem Pequena - 25% */}
+            <div className="relative order-1 lg:order-1 lg:col-span-1">
+              <div className="relative z-10 rounded-[10px] overflow-hidden shadow-2xl">
+                <img 
+                  src="/imagens/querovender/img1cc.jpg" 
+                  alt="Quer Vender? Descubra como!" 
+                  className="w-full h-[300px] md:h-[400px] object-cover"
+                />
               </div>
-              <h4 className="text-xl font-bold mb-4 uppercase tracking-wide">1. Traga Suas Joias</h4>
-              <p className="text-gray-400 leading-relaxed">
-                Venha até nossa loja com suas peças. Não é necessário agendamento prévio.
-              </p>
             </div>
 
-            <div className="bg-white/5 border border-white/10 rounded-[10px] p-8 text-center hover:border-gold/50 transition-all">
-              <div className="w-16 h-16 bg-gold-gradient rounded-full flex items-center justify-center mx-auto mb-6">
-                <ShieldCheck size={32} className="text-black" />
+            {/* Texto - 75% */}
+            <div className="order-2 lg:order-2 lg:col-span-3">
+              <h2 className="text-xl md:text-xl lg:text-2xl uppercase tracking-tight mb-6 text-white">
+                Compramos Ouro, Joias, Relógios de Luxo, Diamantes e Outros Metais Preciosos
+              </h2>
+              <h3 className="text-3xl md:text-4xl font-black uppercase mb-6 text-gold">
+                Quer Vender? Descubra como!
+              </h3>
+              <div className="space-y-4 text-gray-300 leading-relaxed text-base md:text-lg">
+                <p>
+                  Você já parou para pensar na quantidade de ouro e joias que estão guardadas em sua casa, sem uso? É bem comum termos peças esquecidas em gavetas, cofres ou caixas, seja por estarem fora de moda, por terem perdido o valor sentimental ou simplesmente porque não combinam mais com o nosso estilo.
+                </p>
+                <p>
+                  Esses itens, que muitas vezes ficam apenas ocupando espaço, podem se transformar em uma ótima oportunidade de ganho extra. Aqui nós compramos suas joias, avaliamos com transparência, pagamos à vista, garantindo segurança e agilidade em todo o processo, sem contar que temos a melhor avaliação da cidade.
+                </p>
               </div>
-              <h4 className="text-xl font-bold mb-4 uppercase tracking-wide">2. Avaliação Profissional</h4>
-              <p className="text-gray-400 leading-relaxed">
-                Nossos especialistas avaliam na sua presença com balanças certificadas e total transparência.
-              </p>
-            </div>
-
-            <div className="bg-white/5 border border-white/10 rounded-[10px] p-8 text-center hover:border-gold/50 transition-all">
-              <div className="w-16 h-16 bg-gold-gradient rounded-full flex items-center justify-center mx-auto mb-6">
-                <Zap size={32} className="text-black" />
-              </div>
-              <h4 className="text-xl font-bold mb-4 uppercase tracking-wide">3. Receba o Pagamento</h4>
-              <p className="text-gray-400 leading-relaxed">
-                Se aceitar nossa proposta, o pagamento é feito na hora, em dinheiro ou transferência.
-              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* O que Compramos */}
-      <section className="py-24 px-4 md:px-8 bg-white/5">
+      <BrandsCarousel />
+
+      {/* Cards de Benefícios */}
+      <section className="py-12 md:py-[50px] px-4 md:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-gold text-sm font-bold tracking-[0.3em] uppercase mb-4">Aceitamos</h2>
-            <h3 className="text-4xl md:text-5xl font-bold mb-6 uppercase tracking-tight">O Que Compramos</h3>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { title: 'Ouro 18k e 24k', desc: 'Barras, moedas e objetos de ouro' },
-              { title: 'Joias de Ouro', desc: 'Anéis, alianças, colares, brincos' },
-              { title: 'Relógios de Luxo', desc: 'Rolex, Omega, Patek Philippe e mais' },
-              { title: 'Pérolas e Gemas', desc: 'Diamantes, esmeraldas, rubis, safiras' },
-            ].map((item, index) => (
-              <div key={index} className="bg-black border border-gold/20 rounded-[10px] p-6 hover:border-gold transition-all">
-                <Award className="text-gold mb-4" size={24} />
-                <h4 className="text-lg font-bold mb-2 uppercase">{item.title}</h4>
-                <p className="text-gray-400 text-sm">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Por que Vender Conosco */}
-      <section className="py-24 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-gold text-sm font-bold tracking-[0.3em] uppercase mb-4">Vantagens</h2>
-            <h3 className="text-4xl md:text-5xl font-bold mb-6 uppercase tracking-tight">Por Que Vender Conosco</h3>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[
-              { title: 'Melhores Preços', desc: 'Avaliamos e pagamos os melhores valores do mercado' },
-              { title: 'Transparência Total', desc: 'Avaliação feita na sua presença, sem surpresas' },
-              { title: 'Pagamento Imediato', desc: 'Receba na hora, em dinheiro ou transferência' },
-              { title: '15+ Anos de Experiência', desc: 'Tradição e confiança no mercado de joias' },
-            ].map((item, index) => (
-              <div key={index} className="flex items-start space-x-4 p-6 bg-white/5 border border-white/10 rounded-[10px] hover:border-gold/50 transition-all">
-                <div className="w-12 h-12 bg-gold-gradient rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Award size={20} className="text-black" />
-                </div>
-                <div>
-                  <h4 className="text-xl font-bold mb-2 uppercase">{item.title}</h4>
-                  <p className="text-gray-400">{item.desc}</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Card 1 - Preto */}
+            <div className="bg-black border border-white/10 rounded-[10px] p-8 text-center">
+              <div className="flex justify-center mb-6">
+                <div className="w-32 h-32 rounded-full overflow-hidden">
+                  <img 
+                    src="/imagens/querovender/img10.jpeg" 
+                    alt="Precisa equilibrar as contas?" 
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
-            ))}
+              <h3 className="text-xl md:text-2xl font-bold uppercase mb-4 text-white">
+                Precisa equilibrar as contas?
+              </h3>
+              <ul className="space-y-2 text-gray-300 text-sm md:text-base text-center">
+                <li className="flex items-center justify-center">
+                  <span className="mr-2">→</span>
+                  <span>Suas joias de ouro podem ser a chave para sair do aperto.</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Card 2 - Cinza */}
+            <div className="bg-gray-200 border border-gray-300 rounded-[10px] p-8 text-center">
+              <div className="flex justify-center mb-6">
+                <div className="w-32 h-32 rounded-full overflow-hidden">
+                  <img 
+                    src="/imagens/querovender/img11.jpeg" 
+                    alt="Por que Vender Minhas Joias?" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold uppercase mb-4 text-black">
+                Por que Vender Minhas Joias?
+              </h3>
+              <ul className="space-y-2 text-gray-700 text-sm md:text-base text-center">
+                <li className="flex items-center justify-center">
+                  <span className="mr-2">→</span>
+                  <span>Por que manter algo que não é mais útil para você?</span>
+                </li>
+                <li className="flex items-center justify-center">
+                  <span className="mr-2">→</span>
+                  <span>Liberte-se desse peso e dê um novo propósito para suas joias e ouro.</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Card 3 - Preto */}
+            <div className="bg-black border border-white/10 rounded-[10px] p-8 text-center">
+              <div className="flex justify-center mb-6">
+                <div className="w-32 h-32 rounded-full overflow-hidden">
+                  <img 
+                    src="/imagens/querovender/img12.jpeg" 
+                    alt="Nós Temos a Solução!" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold uppercase mb-4 text-white">
+                Nós Temos a Solução!
+              </h3>
+              <ul className="space-y-2 text-gray-300 text-sm md:text-base text-center">
+                <li className="flex items-center justify-center">
+                  <span className="mr-2">→</span>
+                  <span>Confiança, credibilidade, honestidade, transparência,</span>
+                </li>
+                <li className="flex items-center justify-center">
+                  <span className="mr-2">→</span>
+                  <span>discrição e melhor cotação.</span>
+                </li>
+                <li className="flex items-center justify-center">
+                  <span className="mr-2">→</span>
+                  <span>Pagamento na hora.</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
-      <Features />
+      <DesapegueSection />
       <SellCTA />
     </Layout>
   );

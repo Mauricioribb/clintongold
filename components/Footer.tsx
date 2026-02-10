@@ -95,6 +95,20 @@ const Footer: React.FC = () => {
             <img src="https://img.icons8.com/color/48/000000/paypal.png" alt="Paypal" className="h-6 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer" />
           </div>
         </div>
+
+        <div className="pt-4 md:pt-6 border-t border-white/5 text-center">
+          <p className="text-sm text-gray-500 font-light">
+            Desenvolvido e Monitorado por{' '}
+            <a 
+              href="https://PageMax.com.br" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-green-500 hover:text-green-400 transition-colors"
+            >
+              PageMax.com.br
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );
