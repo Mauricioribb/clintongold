@@ -61,7 +61,7 @@ const About: React.FC = () => {
                     <div className="p-2 bg-black rounded-lg text-white">
                       <Users size={20} />
                     </div>
-                    <p className="text-black font-black text-xs uppercase tracking-wide leading-none">Especialistas</p>
+                    <p className="text-black font-black text-lg uppercase tracking-wide leading-none">Especialistas</p>
                   </div>
                   <p className="text-sm text-gray-800 font-medium leading-relaxed">
                     Peritos gemólogos e relojoeiros experientes no mercado internacional de luxo.
