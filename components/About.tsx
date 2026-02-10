@@ -45,7 +45,7 @@ const About: React.FC = () => {
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
                 <div className="bg-neutral-50 p-6 rounded-[10px] border border-gold/10 shadow-xl transition-all duration-300 hover:-translate-y-1">
-                  <div className="flex items-center space-x-3 mb-3">
+                  <div className="flex items-center justify-center md:justify-start space-x-3 mb-3">
                     <div className="p-2 bg-black rounded-lg text-white">
                       <Eye size={20} />
                     </div>
@@ -57,7 +57,7 @@ const About: React.FC = () => {
                 </div>
                 
                 <div className="bg-neutral-50 p-6 rounded-[10px] border border-gold/10 shadow-xl transition-all duration-300 hover:-translate-y-1">
-                  <div className="flex items-center space-x-3 mb-3">
+                  <div className="flex items-center justify-center md:justify-start space-x-3 mb-3">
                     <div className="p-2 bg-black rounded-lg text-white">
                       <Users size={20} />
                     </div>
