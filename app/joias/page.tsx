@@ -1,32 +1,23 @@
 import Layout from '../../components/Layout';
 import ProductCard from '../../components/ProductCard';
 import { Product } from '../../types';
+import { executeQuery } from '../../lib/db-helper';
 
-// ISR: Cache permanente que revalida apenas quando solicitado
+// ISR: Revalida apenas quando solicitado via /api/revalidate
+export const revalidate = false; // Cache permanente
+
 async function getProducts(): Promise<Product[]> {
   try {
-    // Cache permanente - revalida apenas quando chamar /api/revalidate
-    const response = await fetch('/api/products', {
-      cache: 'force-cache' // Cache permanente
-    });
-
-    if (!response.ok) {
-      return [];
-    }
-
-    const products: Product[] = await response.json();
+    const { results } = await executeQuery(
+      'SELECT * FROM products ORDER BY createdAt DESC'
+    );
+    const products: Product[] = results || [];
     
     // Filtrar apenas produtos ativos
     return products
       .filter(p => {
         const isActive = typeof p.active === 'number' ? p.active === 1 : p.active !== false;
         return isActive;
-      })
-      .sort((a, b) => {
-        // Ordenar por data de atualização ou criação (mais recente primeiro)
-        const dateA = new Date(a.updatedAt || a.createdAt || 0).getTime();
-        const dateB = new Date(b.updatedAt || b.createdAt || 0).getTime();
-        return dateB - dateA; // Ordem decrescente (mais recente primeiro)
       });
   } catch (error) {
     console.error('Erro ao buscar produtos:', error);

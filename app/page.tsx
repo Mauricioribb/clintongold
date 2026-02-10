@@ -11,36 +11,25 @@ import SellCTA from '../components/SellCTA';
 import ProductCard from '../components/ProductCard';
 import { Product, SliderImage } from '../types';
 import Link from 'next/link';
+import { executeQuery } from '../lib/db-helper';
 
-// ISR: Cache permanente que revalida apenas quando solicitado
-// Não definir revalidate = cache permanente
+// ISR: Revalida apenas quando solicitado via /api/revalidate
+export const revalidate = false; // Cache permanente
 
 async function getFeaturedProducts(): Promise<Product[]> {
   try {
-    // Cache permanente - revalida apenas quando chamar /api/revalidate
-    const response = await fetch('/api/products', {
-      cache: 'force-cache' // Cache permanente
-    });
-
-    if (!response.ok) {
-      return [];
-    }
-
-    const products: Product[] = await response.json();
+    const { results } = await executeQuery(
+      'SELECT * FROM products ORDER BY createdAt DESC'
+    );
+    const products: Product[] = results || [];
     
-    // Filtrar apenas produtos ativos, ordenar pelos mais recentes e pegar os últimos 8
+    // Filtrar apenas produtos ativos e pegar os últimos 8
     return products
       .filter(p => {
         const isActive = typeof p.active === 'number' ? p.active === 1 : p.active !== false;
         return isActive;
       })
-      .sort((a, b) => {
-        // Ordenar por data de atualização ou criação (mais recente primeiro)
-        const dateA = new Date(a.updatedAt || a.createdAt || 0).getTime();
-        const dateB = new Date(b.updatedAt || b.createdAt || 0).getTime();
-        return dateB - dateA; // Ordem decrescente (mais recente primeiro)
-      })
-      .slice(0, 8); // Pegar os últimos 8
+      .slice(0, 8);
   } catch (error) {
     console.error('Erro ao buscar produtos:', error);
     return [];
@@ -49,28 +38,16 @@ async function getFeaturedProducts(): Promise<Product[]> {
 
 async function getHighlightedProducts(): Promise<Product[]> {
   try {
-    // Cache permanente - revalida apenas quando chamar /api/revalidate
-    const response = await fetch('/api/products', {
-      cache: 'force-cache' // Cache permanente
-    });
-
-    if (!response.ok) {
-      return [];
-    }
-
-    const products: Product[] = await response.json();
+    const { results } = await executeQuery(
+      'SELECT * FROM products ORDER BY createdAt DESC'
+    );
+    const products: Product[] = results || [];
     
     // Filtrar produtos ativos com tag "Destaque"
     return products
       .filter(p => {
         const isActive = typeof p.active === 'number' ? p.active === 1 : p.active !== false;
         return isActive && p.tag === 'Destaque';
-      })
-      .sort((a, b) => {
-        // Ordenar por data de atualização ou criação (mais recente primeiro)
-        const dateA = new Date(a.updatedAt || a.createdAt || 0).getTime();
-        const dateB = new Date(b.updatedAt || b.createdAt || 0).getTime();
-        return dateB - dateA; // Ordem decrescente (mais recente primeiro)
       });
   } catch (error) {
     console.error('Erro ao buscar produtos em destaque:', error);
@@ -80,24 +57,17 @@ async function getHighlightedProducts(): Promise<Product[]> {
 
 async function getSliderImages(): Promise<SliderImage[]> {
   try {
-    // Cache permanente - revalida apenas quando chamar /api/revalidate
-    const response = await fetch('/api/slider', {
-      cache: 'force-cache' // Cache permanente
-    });
-
-    if (!response.ok) {
-      return [];
-    }
-
-    const images: SliderImage[] = await response.json();
+    const { results } = await executeQuery(
+      'SELECT * FROM slider_images ORDER BY "order" ASC'
+    );
+    const images: SliderImage[] = results || [];
     
-    // Filtrar apenas imagens ativas e ordenar
+    // Filtrar apenas imagens ativas
     return images
       .filter(img => {
         const isActive = typeof img.active === 'number' ? img.active === 1 : img.active === true;
         return isActive;
-      })
-      .sort((a, b) => a.order - b.order);
+      });
   } catch (error) {
     console.error('Erro ao buscar slider:', error);
     return [];
