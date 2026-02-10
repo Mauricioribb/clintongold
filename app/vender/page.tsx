@@ -7,9 +7,9 @@ export default function VenderPage() {
   return (
     <Layout>
       {/* Banner Grande */}
-      <section className="py-12 md:py-[50px] px-4 md:px-8">
+      <section className="py-4 md:py-[50px] px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="relative h-[260px] md:h-[500px] overflow-hidden rounded-[10px]">
+          <div className="relative h-[182px] md:h-[350px] overflow-hidden rounded-[10px]">
             <img 
               src="/imagens/querovender/Compramos-Ouro-e-Joias.jpg" 
               alt="Compramos Ouro e Joias" 
@@ -24,28 +24,28 @@ export default function VenderPage() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 items-center">
             {/* Imagem Pequena - 25% */}
-            <div className="relative order-1 lg:order-1 lg:col-span-1">
-              <div className="relative z-10 rounded-[10px] overflow-hidden shadow-2xl">
+            <div className="relative order-1 lg:order-1 lg:col-span-1 flex items-center justify-center">
+              <div className="relative z-10 rounded-[10px] overflow-hidden shadow-2xl w-full">
                 <img 
                   src="/imagens/querovender/img1cc.jpg" 
                   alt="Quer Vender? Descubra como!" 
-                  className="w-full h-[300px] md:h-[400px] object-cover"
+                  className="w-1/2 lg:w-full h-auto object-contain mx-auto"
                 />
               </div>
             </div>
 
             {/* Texto - 75% */}
             <div className="order-2 lg:order-2 lg:col-span-3">
-              <h2 className="text-xl md:text-xl lg:text-2xl uppercase tracking-tight mb-6 text-white">
+              <h2 className="text-base md:text-xl lg:text-2xl font-medium md:font-normal uppercase tracking-tight mb-6 text-white text-center md:text-left">
                 Compramos Ouro, Joias, Relógios de Luxo, Diamantes e Outros Metais Preciosos
               </h2>
-              <h3 className="text-3xl md:text-4xl font-black uppercase mb-6 text-gold">
+              <h3 className="text-2xl md:text-3xl font-semibold md:font-black uppercase mb-6 text-gold text-center">
                 Quer Vender? Descubra como!
               </h3>
-              <div className="space-y-4 text-gray-300 leading-relaxed text-base md:text-lg">
+              <div className="space-y-4 text-gray-300 leading-relaxed text-base md:text-lg text-center md:text-left">
                 <p>
                   Você já parou para pensar na quantidade de ouro e joias que estão guardadas em sua casa, sem uso? É bem comum termos peças esquecidas em gavetas, cofres ou caixas, seja por estarem fora de moda, por terem perdido o valor sentimental ou simplesmente porque não combinam mais com o nosso estilo.
-              </p>
+                </p>
                 <p>
                   Esses itens, que muitas vezes ficam apenas ocupando espaço, podem se transformar em uma ótima oportunidade de ganho extra. Aqui nós compramos suas joias, avaliamos com transparência, pagamos à vista, garantindo segurança e agilidade em todo o processo, sem contar que temos a melhor avaliação da cidade.
                 </p>
@@ -77,7 +77,6 @@ export default function VenderPage() {
               </h3>
               <ul className="space-y-2 text-gray-300 text-sm md:text-base text-center">
                 <li className="flex items-center justify-center">
-                  <span className="mr-2">→</span>
                   <span>Suas joias de ouro podem ser a chave para sair do aperto.</span>
                 </li>
               </ul>
@@ -99,11 +98,9 @@ export default function VenderPage() {
               </h3>
               <ul className="space-y-2 text-gray-700 text-sm md:text-base text-center">
                 <li className="flex items-center justify-center">
-                  <span className="mr-2">→</span>
                   <span>Por que manter algo que não é mais útil para você?</span>
                 </li>
                 <li className="flex items-center justify-center">
-                  <span className="mr-2">→</span>
                   <span>Liberte-se desse peso e dê um novo propósito para suas joias e ouro.</span>
                 </li>
               </ul>
@@ -125,15 +122,12 @@ export default function VenderPage() {
               </h3>
               <ul className="space-y-2 text-gray-300 text-sm md:text-base text-center">
                 <li className="flex items-center justify-center">
-                  <span className="mr-2">→</span>
                   <span>Confiança, credibilidade, honestidade, transparência,</span>
                 </li>
                 <li className="flex items-center justify-center">
-                  <span className="mr-2">→</span>
                   <span>discrição e melhor cotação.</span>
                 </li>
                 <li className="flex items-center justify-center">
-                  <span className="mr-2">→</span>
                   <span>Pagamento na hora.</span>
                 </li>
               </ul>

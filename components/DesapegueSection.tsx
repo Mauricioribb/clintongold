@@ -9,18 +9,9 @@ const DesapegueSection: React.FC = () => {
 
   return (
     <section className="relative py-16 md:py-24 px-4 md:px-8 bg-gray-800 overflow-hidden">
-      {/* Imagem de fundo com blur */}
-      <div className="absolute inset-0 opacity-20">
-        <img 
-          src="/imagens/querovender/joias-fundo.jpg" 
-          alt="Joias de fundo" 
-          className="w-full h-full object-cover"
-        />
-      </div>
-      
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-black uppercase mb-6 text-gold">
+          <h2 className="text-lg md:text-xl lg:text-2xl font-black uppercase mb-6 text-gold">
             Desapegue Agora e Comece uma Nova História!
           </h2>
           <p className="text-lg md:text-xl text-white max-w-4xl mx-auto leading-relaxed">
