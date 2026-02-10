@@ -12,13 +12,23 @@ import ProductCard from '../components/ProductCard';
 import { Product, SliderImage } from '../types';
 import Link from 'next/link';
 
-// ISR: Revalida a cada 60 segundos
-export const revalidate = 60;
+// Forçar renderização dinâmica para permitir fetch durante build
+export const dynamic = 'force-dynamic';
 
 async function getFeaturedProducts(): Promise<Product[]> {
   try {
-    // Buscar da API interna - usar URL relativa para SSR/ISR
-    const response = await fetch('/api/products', {
+    // Construir URL absoluta para build estático
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
+                   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 
+                   (typeof window === 'undefined' ? 'http://localhost:3000' : ''));
+    
+    // Se não temos baseUrl durante build, retornar vazio (será preenchido em runtime)
+    if (!baseUrl) {
+      return [];
+    }
+    
+    const apiUrl = `${baseUrl}/api/products`;
+    const response = await fetch(apiUrl, {
       next: { revalidate: 60 } // ISR: revalida a cada 60 segundos
     });
 
@@ -49,8 +59,18 @@ async function getFeaturedProducts(): Promise<Product[]> {
 
 async function getHighlightedProducts(): Promise<Product[]> {
   try {
-    // Buscar da API interna - usar URL relativa para SSR/ISR
-    const response = await fetch('/api/products', {
+    // Construir URL absoluta para build estático
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
+                   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 
+                   (typeof window === 'undefined' ? 'http://localhost:3000' : ''));
+    
+    // Se não temos baseUrl durante build, retornar vazio (será preenchido em runtime)
+    if (!baseUrl) {
+      return [];
+    }
+    
+    const apiUrl = `${baseUrl}/api/products`;
+    const response = await fetch(apiUrl, {
       next: { revalidate: 60 } // ISR: revalida a cada 60 segundos
     });
 
@@ -80,8 +100,18 @@ async function getHighlightedProducts(): Promise<Product[]> {
 
 async function getSliderImages(): Promise<SliderImage[]> {
   try {
-    // Buscar da API interna - usar URL relativa para SSR/ISR
-    const response = await fetch('/api/slider', {
+    // Construir URL absoluta para build estático
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
+                   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 
+                   (typeof window === 'undefined' ? 'http://localhost:3000' : ''));
+    
+    // Se não temos baseUrl durante build, retornar vazio (será preenchido em runtime)
+    if (!baseUrl) {
+      return [];
+    }
+    
+    const apiUrl = `${baseUrl}/api/slider`;
+    const response = await fetch(apiUrl, {
       next: { revalidate: 60 } // ISR: revalida a cada 60 segundos
     });
 
