@@ -96,7 +96,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
         </div>
         
         {/* Conteúdo do Card */}
-        <div className="p-4 flex flex-col flex-grow text-center">
+        <div className="px-[7px] py-4 md:p-4 flex flex-col flex-grow text-center">
           <h3 className="text-[11px] font-bold text-neutral-800 mb-1 line-clamp-1 uppercase tracking-tight">
             {product.name}
           </h3>
