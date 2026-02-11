@@ -1,9 +1,58 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
+// Rate limiting simples em memória (em produção, use Redis ou banco de dados)
+const loginAttempts = new Map<string, { count: number; lastAttempt: number }>();
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const attempts = loginAttempts.get(ip);
+
+  if (!attempts) {
+    loginAttempts.set(ip, { count: 1, lastAttempt: now });
+    return true;
+  }
+
+  // Reset após 15 minutos
+  if (now - attempts.lastAttempt > 15 * 60 * 1000) {
+    loginAttempts.set(ip, { count: 1, lastAttempt: now });
+    return true;
+  }
+
+  // Máximo de 5 tentativas a cada 15 minutos
+  if (attempts.count >= 5) {
+    return false;
+  }
+
+  attempts.count++;
+  attempts.lastAttempt = now;
+  return true;
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const { username, password } = await request.json();
+    const { username, password, honeypot } = await request.json();
+
+    // Obter IP do cliente
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0] || 
+               request.headers.get('x-real-ip') || 
+               'unknown';
+
+    // Verificar honeypot (se preenchido, é bot)
+    if (honeypot) {
+      return NextResponse.json(
+        { error: 'Erro de validação' },
+        { status: 403 }
+      );
+    }
+
+    // Verificar rate limiting
+    if (!checkRateLimit(ip)) {
+      return NextResponse.json(
+        { error: 'Muitas tentativas de login. Aguarde 15 minutos antes de tentar novamente.' },
+        { status: 429 }
+      );
+    }
 
     // Credenciais padrão - em produção, use variável de ambiente e hash
     const adminUsername = process.env.ADMIN_USERNAME || 'admin';
@@ -18,6 +67,9 @@ export async function POST(request: NextRequest) {
     console.log('[LOGIN DEBUG] Usando ADMIN_PASSWORD da env:', usingEnvPassword);
 
     if (username === adminUsername && password === adminPassword) {
+      // Limpar tentativas após login bem-sucedido
+      loginAttempts.delete(ip);
+
       const cookieStore = await cookies();
       const isProduction = process.env.NODE_ENV === 'production' || process.env.VERCEL === '1';
       
