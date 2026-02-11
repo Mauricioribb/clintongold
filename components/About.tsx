@@ -22,7 +22,7 @@ const About: React.FC = () => {
               <div className="bg-black/10 p-2 md:p-3 rounded-full mb-2 md:mb-3">
                 <Award size={24} className="text-black md:w-8 md:h-8" />
               </div>
-              <p className="text-black font-black text-4xl md:text-5xl leading-none">15+</p>
+              <p className="text-black font-black text-4xl md:text-5xl leading-none">+15</p>
               <p className="text-black text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] mt-1 md:mt-2 max-w-[200px] md:max-w-[100px] leading-tight">
                 Anos de Tradição & Excelência
               </p>
