@@ -14,16 +14,16 @@ const About: React.FC = () => {
               <img 
                 src="/imagens/img12.webp" 
                 alt="Workshop Joalheria de Luxo" 
-                className="w-[350px] md:w-full h-[325px] md:h-[500px] object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
+                className="w-[350px] md:w-full h-[450px] md:h-[500px] object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
               />
             </div>
             
-            <div className="absolute bottom-4 right-4 md:-bottom-8 md:right-8 bg-gold-gradient p-4 md:p-10 rounded-[10px] shadow-[0_20px_50px_rgba(212,175,55,0.4)] animate-fade-in flex flex-col items-center text-center border-4 border-black/10 z-20 md:[left:332px] md:[top:282px]">
-              <div className="bg-black/10 p-3 rounded-full mb-3">
-                <Award size={32} className="text-black" />
+            <div className="absolute -bottom-4 right-2 md:-bottom-8 md:right-8 bg-gold-gradient p-3 md:p-10 rounded-[10px] shadow-[0_20px_50px_rgba(212,175,55,0.4)] animate-fade-in flex flex-col items-center text-center border-4 border-black/10 z-20 w-[220px] md:w-auto md:[left:332px] md:[top:282px]">
+              <div className="bg-black/10 p-2 md:p-3 rounded-full mb-2 md:mb-3">
+                <Award size={24} className="text-black md:w-8 md:h-8" />
               </div>
-              <p className="text-black font-black text-5xl leading-none">15+</p>
-              <p className="text-black text-[10px] font-black uppercase tracking-[0.2em] mt-2 max-w-[100px] leading-tight">
+              <p className="text-black font-black text-4xl md:text-5xl leading-none">15+</p>
+              <p className="text-black text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] mt-1 md:mt-2 max-w-[200px] md:max-w-[100px] leading-tight">
                 Anos de Tradição & Excelência
               </p>
             </div>

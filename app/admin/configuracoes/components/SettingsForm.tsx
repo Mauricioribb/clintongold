@@ -41,6 +41,7 @@ export default function SettingsForm({ initialSettings }: SettingsFormProps) {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include', // Importante para enviar cookies
         body: JSON.stringify({
           key: 'whatsapp_number',
           value: cleanNumber,
@@ -48,7 +49,11 @@ export default function SettingsForm({ initialSettings }: SettingsFormProps) {
       });
 
       if (!whatsappResponse.ok) {
-        throw new Error('Erro ao salvar configuração do WhatsApp');
+        const errorData = await whatsappResponse.json().catch(() => ({}));
+        if (whatsappResponse.status === 401) {
+          throw new Error('Sessão expirada. Por favor, faça login novamente.');
+        }
+        throw new Error(errorData.error || 'Erro ao salvar configuração do WhatsApp');
       }
 
       // Salvar sales_disabled
@@ -57,6 +62,7 @@ export default function SettingsForm({ initialSettings }: SettingsFormProps) {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include', // Importante para enviar cookies
         body: JSON.stringify({
           key: 'sales_disabled',
           value: salesDisabled ? 'true' : 'false',
@@ -64,7 +70,11 @@ export default function SettingsForm({ initialSettings }: SettingsFormProps) {
       });
 
       if (!salesResponse.ok) {
-        throw new Error('Erro ao salvar configuração de vendas');
+        const errorData = await salesResponse.json().catch(() => ({}));
+        if (salesResponse.status === 401) {
+          throw new Error('Sessão expirada. Por favor, faça login novamente.');
+        }
+        throw new Error(errorData.error || 'Erro ao salvar configuração de vendas');
       }
 
       setMessage({ type: 'success', text: 'Configurações salvas com sucesso!' });

@@ -33,9 +33,14 @@ export async function POST(request: NextRequest) {
     const cookieStore = await cookies();
     const auth = cookieStore.get('admin_auth');
     
+    // Debug: log apenas em desenvolvimento
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('Auth cookie:', auth ? 'presente' : 'ausente', auth?.value);
+    }
+    
     if (auth?.value !== 'authenticated') {
       return NextResponse.json(
-        { error: 'Não autorizado' },
+        { error: 'Não autorizado. Por favor, faça login novamente.' },
         { status: 401 }
       );
     }
