@@ -12,13 +12,9 @@ const About: React.FC = () => {
             <div className="absolute -top-10 -left-10 w-40 h-40 bg-gold/10 rounded-full blur-3xl animate-pulse"></div>
             <div className="relative z-10 rounded-[10px] overflow-hidden shadow-2xl shadow-gold/10 border border-white/5 bg-neutral-900">
               <img 
-                src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?q=80&w=2070&auto=format&fit=crop" 
+                src="/imagens/img12.webp" 
                 alt="Workshop Joalheria de Luxo" 
                 className="w-[350px] md:w-full h-[325px] md:h-[500px] object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = "https://images.unsplash.com/photo-1573408302185-9127fe583ad5?q=80&w=2069&auto=format&fit=crop";
-                }}
               />
             </div>
             
