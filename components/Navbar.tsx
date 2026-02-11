@@ -56,12 +56,14 @@ const Navbar: React.FC = () => {
 
         {/* Right Actions */}
         <div className="hidden lg:flex items-center space-x-6">
-          <button 
-            onClick={() => setIsSearchOpen(true)}
-            className="p-2 hover:text-gold transition-colors"
-          >
-            <Search size={20} />
-          </button>
+          {!salesDisabled && (
+            <button 
+              onClick={() => setIsSearchOpen(true)}
+              className="p-2 hover:text-gold transition-colors"
+            >
+              <Search size={20} />
+            </button>
+          )}
           <a
             href={whatsappUrl}
             className="flex items-center space-x-2 bg-gold-gradient text-black px-5 py-2.5 rounded-full font-bold text-xs tracking-wider uppercase hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all transform hover:-translate-y-0.5"
@@ -75,12 +77,14 @@ const Navbar: React.FC = () => {
 
         {/* Mobile Actions */}
         <div className="lg:hidden flex items-center space-x-2">
-          <button
-            onClick={() => setIsSearchOpen(true)}
-            className="p-2 text-gold hover:text-gold/80 transition-colors"
-          >
-            <Search size={24} />
-          </button>
+          {!salesDisabled && (
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="p-2 text-gold hover:text-gold/80 transition-colors"
+            >
+              <Search size={24} />
+            </button>
+          )}
           <button
             className="p-2 text-gold"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -105,16 +109,18 @@ const Navbar: React.FC = () => {
               {item.label}
             </Link>
           ))}
-          <button
-            onClick={() => {
-              setIsSearchOpen(true);
-              setIsMobileMenuOpen(false);
-            }}
-            className="w-full flex items-center justify-center space-x-2 bg-white/5 border border-white/10 text-white py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-white/10 transition-all"
-          >
-            <Search size={18} />
-            <span>Buscar Produtos</span>
-          </button>
+          {!salesDisabled && (
+            <button
+              onClick={() => {
+                setIsSearchOpen(true);
+                setIsMobileMenuOpen(false);
+              }}
+              className="w-full flex items-center justify-center space-x-2 bg-white/5 border border-white/10 text-white py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-white/10 transition-all"
+            >
+              <Search size={18} />
+              <span>Buscar Produtos</span>
+            </button>
+          )}
           <a
             href={whatsappUrl}
             className="w-full flex items-center justify-center space-x-2 bg-gold-gradient text-black py-4 rounded-xl font-bold uppercase tracking-widest"
@@ -128,7 +134,9 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* Search Modal */}
-      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      {!salesDisabled && (
+        <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      )}
     </nav>
   );
 };
