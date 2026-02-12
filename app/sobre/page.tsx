@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     url: `${baseUrl}/sobre`,
     images: [
       {
-        url: `${baseUrl}/imagens/clintogold-logo.webp`,
+        url: `${baseUrl}/imagens/clintogold-logo-redes.jpg`,
         width: 1200,
         height: 630,
         alt: 'Clinton Gold - Sobre Nós',

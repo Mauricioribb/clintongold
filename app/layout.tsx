@@ -38,11 +38,11 @@ export const metadata: Metadata = {
     description: 'Especializados na compra e venda de ouro, joias exclusivas e relógios de luxo. Transparência, avaliação justa e peças selecionadas com rigor.',
     images: [
       {
-        url: `${baseUrl}/imagens/clintogold-logo.webp`,
+        url: `${baseUrl}/imagens/clintogold-logo-redes.jpg`,
         width: 1200,
         height: 630,
         alt: 'Clinton Gold - Joalheria de Luxo',
-        type: 'image/webp',
+        type: 'image/jpeg',
       },
     ],
   },
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Clinton Gold - Compra e Venda de Ouro e Joias',
     description: 'Especializados na compra e venda de ouro, joias exclusivas e relógios de luxo.',
-    images: [`${baseUrl}/imagens/clintogold-logo.webp`],
+    images: [`${baseUrl}/imagens/clintogold-logo-redes.jpg`],
   },
   robots: {
     index: true,
