@@ -2,9 +2,34 @@ import Layout from '../../components/Layout';
 import { Product, Category } from '../../types';
 import { executeQuery } from '../../lib/db-helper';
 import ProductsWithFilter from '../../components/ProductsWithFilter';
+import type { Metadata } from 'next';
 
 // ISR: Revalida apenas quando solicitado via /api/revalidate
 export const revalidate = false; // Cache permanente
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://clintongold.com.br';
+
+export const metadata: Metadata = {
+  title: 'Joias Exclusivas - Catálogo Completo',
+  description: 'Explore nossa coleção exclusiva de joias de ouro, relógios de luxo e acessórios premium. Peças únicas e sob encomenda com os mais altos padrões de qualidade.',
+  keywords: ['joias', 'joias de ouro', 'relógios de luxo', 'joias exclusivas', 'catálogo joias', 'joias sob encomenda'],
+  alternates: {
+    canonical: `${baseUrl}/joias`,
+  },
+  openGraph: {
+    title: 'Joias Exclusivas - Catálogo Completo | Clinton Gold',
+    description: 'Explore nossa coleção exclusiva de joias de ouro, relógios de luxo e acessórios premium.',
+    url: `${baseUrl}/joias`,
+    images: [
+      {
+        url: `${baseUrl}/imagens/clintogold-logo.webp`,
+        width: 1200,
+        height: 630,
+        alt: 'Clinton Gold - Joias Exclusivas',
+      },
+    ],
+  },
+};
 
 async function getProducts(): Promise<Product[]> {
   try {

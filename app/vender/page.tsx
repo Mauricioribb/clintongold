@@ -2,6 +2,31 @@ import Layout from '../../components/Layout';
 import SellCTA from '../../components/SellCTA';
 import BrandsCarousel from '../../components/BrandsCarousel';
 import DesapegueSection from '../../components/DesapegueSection';
+import type { Metadata } from 'next';
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://clintongold.com.br';
+
+export const metadata: Metadata = {
+  title: 'Venda Seu Ouro e Joias - Melhor Cotação',
+  description: 'Compramos ouro, joias, relógios de luxo, diamantes e outros metais preciosos. Avaliação gratuita, pagamento imediato e melhor cotação do mercado. Transparência e segurança garantidas.',
+  keywords: ['vender ouro', 'vender joias', 'compramos ouro', 'avaliação ouro', 'cotação ouro', 'vender relógio luxo', 'vender diamantes'],
+  alternates: {
+    canonical: `${baseUrl}/vender`,
+  },
+  openGraph: {
+    title: 'Venda Seu Ouro e Joias - Melhor Cotação | Clinton Gold',
+    description: 'Compramos ouro, joias, relógios de luxo, diamantes e outros metais preciosos. Avaliação gratuita e pagamento imediato.',
+    url: `${baseUrl}/vender`,
+    images: [
+      {
+        url: `${baseUrl}/imagens/clintogold-logo.webp`,
+        width: 1200,
+        height: 630,
+        alt: 'Clinton Gold - Venda Seu Ouro e Joias',
+      },
+    ],
+  },
+};
 
 export default function VenderPage() {
   return (

@@ -1,5 +1,30 @@
 import Layout from '../../components/Layout';
 import ContactInfo from '../../components/ContactInfo';
+import type { Metadata } from 'next';
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://clintongold.com.br';
+
+export const metadata: Metadata = {
+  title: 'Contato - Fale Conosco',
+  description: 'Entre em contato com a Clinton Gold. Estamos prontos para atender você através dos nossos canais de atendimento. WhatsApp, telefone e endereço.',
+  keywords: ['contato clinton gold', 'fale conosco', 'atendimento joalheria', 'whatsapp clinton gold'],
+  alternates: {
+    canonical: `${baseUrl}/contato`,
+  },
+  openGraph: {
+    title: 'Contato - Fale Conosco | Clinton Gold',
+    description: 'Entre em contato com a Clinton Gold. Estamos prontos para atender você.',
+    url: `${baseUrl}/contato`,
+    images: [
+      {
+        url: `${baseUrl}/imagens/clintogold-logo.webp`,
+        width: 1200,
+        height: 630,
+        alt: 'Clinton Gold - Contato',
+      },
+    ],
+  },
+};
 
 export default function ContatoPage() {
   return (

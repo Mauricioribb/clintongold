@@ -4,6 +4,31 @@ import SellCTA from '../../components/SellCTA';
 import { SliderImage } from '../../types';
 import { executeQuery } from '../../lib/db-helper';
 import { ClipboardCheck, HandCoins, TrendingUp } from 'lucide-react';
+import type { Metadata } from 'next';
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://clintongold.com.br';
+
+export const metadata: Metadata = {
+  title: 'Sobre Nós - Clinton Joalheria',
+  description: 'Clinton Joalheria é especializada na compra e avaliação de ouro, joias finas, relógios de luxo, diamantes e metais preciosos. Mais de 15 anos de tradição e excelência no mercado.',
+  keywords: ['sobre clinton gold', 'história joalheria', 'tradição joalheria', 'avaliadores experientes', 'joalheria salvador'],
+  alternates: {
+    canonical: `${baseUrl}/sobre`,
+  },
+  openGraph: {
+    title: 'Sobre Nós - Clinton Joalheria | Clinton Gold',
+    description: 'Mais de 15 anos de tradição e excelência na compra e avaliação de ouro, joias e relógios de luxo.',
+    url: `${baseUrl}/sobre`,
+    images: [
+      {
+        url: `${baseUrl}/imagens/clintogold-logo.webp`,
+        width: 1200,
+        height: 630,
+        alt: 'Clinton Gold - Sobre Nós',
+      },
+    ],
+  },
+};
 
 async function getSliderImages(): Promise<SliderImage[]> {
   try {
